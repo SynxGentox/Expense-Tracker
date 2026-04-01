@@ -1,0 +1,29 @@
+//
+//  Expenses.swift
+//  Expense Tracker
+//
+//  Created by Aryan Verma on 01/04/26.
+//
+
+import SwiftUI
+import SwiftData
+
+@Model
+class ExpensesData: Identifiable {
+    var id: UUID = UUID()
+    var amount: Double
+    var note: String
+    var date: Date
+    var category: String
+    var categoryIcon: String
+    
+    init(amount: Double, note: String, date: Date, category: String, categoryIcon: String) {
+        self.amount = amount
+        self.note = note
+        self.date = date
+        self.category = category
+        self.categoryIcon = categoryIcon
+    }
+}
+
+
