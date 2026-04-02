@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Expense_TrackerApp: App {
     private let dataHelper: DataHelper = DataHelper()
-    private let dataStorage: DataStorage = DataStorage()
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environment(dataHelper)
-                .environment(dataStorage)
         }
+        .modelContainer(for: ExpensesData.self)
     }
 }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Observation
+import SwiftData
 
 @Observable
 class DataHelper {
@@ -17,7 +18,7 @@ class DataHelper {
     var category: String?
     var categoryIcon: String?
     
-    func saveExpense(to vault: DataStorage) {
+    func saveExpense(to context: ModelContext) {
         guard let newAmt = amountValue, newAmt > 0 else {
             print("Invalid Input!: amount cant be 0")
             return
@@ -31,13 +32,8 @@ class DataHelper {
             categoryIcon: categoryIcon ?? "questionmark.circle.fill"
         )
         
-        vault.expensesCloud.append(newExpense)
+        context.insert(newExpense)
         print("Expense Saved")
-    }
-    
-    func clearHistory(of vault: DataStorage) {
-        vault.expensesCloud.removeAll()
-        print("History Cleared")
     }
 }
 

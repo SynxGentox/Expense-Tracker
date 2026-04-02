@@ -16,7 +16,10 @@ struct ActionButton: View {
     var body: some View {
         VStack {
             Button(action: action) {
-                PolymorphicButtonContent(isImage: buttonDisplay, infinite: infinite)
+                PolymorphicButtonContent(
+                    isImage: buttonDisplay,
+                    infinite: infinite
+                )
             }
             .buttonStyle(ActionButtonStyle())
         }
@@ -30,13 +33,14 @@ struct ActionNavigationButton<Destination: View>: View {
     
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                NavigationLink(destination: destination) {
-                    PolymorphicButtonContent(isImage: buttonDisplay, infinite: infinite)
-                }
-                .buttonStyle(ActionButtonStyle())
+        VStack {
+            NavigationLink(destination: destination) {
+                PolymorphicButtonContent(
+                    isImage: buttonDisplay,
+                    infinite: infinite
+                )
             }
+            .buttonStyle(ActionButtonStyle())
         }
     }
 }

@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddExpenseView: View {
     @FocusState var isEditing: Bool
     @Environment(DataHelper.self) private var dataHelper
-    @Environment(DataStorage.self) private var dataStorage
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         @Bindable var amount = dataHelper
         @Bindable var text = dataHelper
         VStack(spacing: 0) {
             ScrollView {
-                Spacer().frame(height: 100)
+                Spacer().frame(height: CardT.CHeight.mediumH.cardCH)
                 HStack {
                     Text("How much did you spend?")
                         .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
@@ -38,7 +40,8 @@ struct AddExpenseView: View {
                 Spacer()
             }
             PrimaryButton(buttonDisplay: "checkmark", infinite: true) {
-                dataHelper.saveExpense(to: dataStorage)
+                dataHelper.saveExpense(to: context)
+                dismiss()
             }
             .padding(.vertical, 20)
             .padding(.horizontal, 10)
@@ -55,11 +58,12 @@ struct AddExpenseView: View {
             }
             else {
                 ActionButton(buttonDisplay: "xmark", infinite: false) {
-                    
+                    dismiss()
                 }
                 .disabled(dataHelper.amountValue == 0.0 ? true : false)
             }
         }
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
@@ -67,6 +71,6 @@ struct AddExpenseView: View {
     NavigationStack {
         AddExpenseView()
             .environment(DataHelper())
-            .environment(DataStorage())
+            .modelContainer(for: ExpensesData.self, inMemory: true)
     }
 }

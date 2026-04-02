@@ -6,20 +6,43 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
+    @Environment(\.modelContext) private var context
+    @Query(sort: \ExpensesData.date, order: .reverse) private var expensesList: [ExpensesData]
+    @State private var isPresented: Bool = false
+    
     var body: some View {
-//        let plusButtonBottomPadding: CGFloat = 4
-//        let plusButtonSize: CGFloat = 40
+        
+        //        let plusButtonBottomPadding: CGFloat = 4
+        //        let plusButtonSize: CGFloat = 40
         ZStack {
             TabView {
                 Tab.init("Home", systemImage: "house.fill") {
+                        PrimaryButton(buttonDisplay: "plus", infinite: false) {
+                            isPresented = true
+                        }
+                        .sheet(isPresented: $isPresented) {
+                            AddExpenseView()
+                        }
+                    
                 }
                 
-                Tab.init(
-                    "History",
-                    systemImage: "dollarsign.arrow.trianglehead.counterclockwise.rotate.90"
+                Tab.init("History",
+                         systemImage: "dollarsign.arrow.trianglehead.counterclockwise.rotate.90"
                 ) {
+                    List(expensesList) { expense in
+                        ForEach(expensesList) { expense in
+                            VStack(alignment: .leading) {
+                                Text(expense.note)
+                                    .font(.headline)
+                                Text("$\(expense.amount, specifier: "%.2f")")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
                     
                 }
                 
@@ -31,13 +54,12 @@ struct HomeView: View {
                     
                 }
             }
-            
-            
-            
         }
     }
 }
 
 #Preview {
     HomeView()
+        .environment(DataHelper())
+        .modelContainer(for: ExpensesData.self, inMemory: true)
 }

@@ -58,7 +58,7 @@ enum ButtonT {
     
     var valueBP: CGFloat  {
         switch self {
-        case .buttonIcPad:    return 8
+        case .buttonIcPad:    return 10
         }
     }
 }
