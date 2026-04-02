@@ -13,7 +13,7 @@ struct PrimaryFontStyleExt: ViewModifier {
         content
             .foregroundStyle(.primary)
             .font(
-                .system(size: fontSize, weight: .regular, design: .rounded)
+                .system(size: fontSize, weight: .medium, design: .default)
             )
     }
 }
@@ -30,7 +30,7 @@ struct SecondaryFontStyleExt: ViewModifier {
         content
             .foregroundStyle(.secondary)
             .font(
-                .system(size: fontSize, weight: .light, design: .rounded)
+                .system(size: fontSize, weight: .regular, design: .default)
             )
     }
 }
@@ -48,7 +48,7 @@ struct AmountFontStyleExt: ViewModifier {
         content
             .foregroundStyle(.primary)
             .font(
-                .system(size: numSize, weight: .medium, design: .monospaced)
+                .system(size: numSize, weight: .bold, design: .default)
             )
             
     }

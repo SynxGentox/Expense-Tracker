@@ -12,20 +12,23 @@ extension View {
         self
             .foregroundStyle(.white)
             .opacity(isTapped ? 0.7 : 1)
-            .scaleEffect(isTapped ? 1.2 : 1)
+            .scaleEffect(isTapped ? 1.4 : 1)
+            .shadow(color: .black.opacity(0.25), radius: 2.5, x: 5, y: 5)
             .clipShape(.capsule)
             .animation(.smooth, value: isTapped)
+            
     }
 }
 
 extension Image {
-    func buttonIconStyleExt(buttonHeight: CGFloat, buttonWidth: CGFloat) -> some View {
+    func buttonIconStyleExt(buttonHeight: CGFloat, buttonWidth: CGFloat, iconColor: Color) -> some View {
         self
             .resizable()
             .scaledToFit()
             .fontWeight(.light)
-            .foregroundStyle(Color.primary.opacity(0.8))
+            .foregroundStyle(iconColor)
             .padding(ButtonT.buttonIcPad.valueBP)
             .frame(maxWidth: buttonWidth, maxHeight: buttonHeight)
+            
     }
 }

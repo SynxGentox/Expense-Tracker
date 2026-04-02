@@ -16,54 +16,63 @@ struct AddExpenseView: View {
     var body: some View {
         @Bindable var amount = dataHelper
         @Bindable var text = dataHelper
-        VStack(spacing: 0) {
-            ScrollView {
-                Spacer().frame(height: CardT.CHeight.mediumH.cardCH)
-                HStack {
-                    Text("How much did you spend?")
-                        .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                    Spacer()
+        
+        NavigationStack {
+            VStack(spacing: 0) {
+                ScrollView {
+                    Spacer().frame(height: CardT.CHeight.xSmallH.cardCH)
+                    HStack {
+                        Text("How much did you spend?")
+                            .primaryFontStyleExt(
+                                fontSize: FontT.primaryF.valueF
+                            )
+                        Spacer()
+                    }
+                    AmountInputField()
+                        .keyboardType(.numberPad)
+                        .focused($isEditing)
+                        .padding(.bottom)
+                    
+                    CategorySubFeat()
+                    Spacer().frame(height: 0)
+                    
+                    DateMethodSubFeat()
+                        .padding(.vertical)
+                    Spacer().frame(height: 0)
+                    
+                    NotesSubFeat()
+                        .focused($isEditing)
+                    Spacer().frame(height: 0)
                 }
-            
-                AmountInputField()
-                    .keyboardType(.numberPad)
-                    .focused($isEditing)
-                    .padding(.bottom, 30)
-            
-                CategorySubFeat()
-            
-                DateMethodSubFeat()
-                .padding(.vertical)
-            
-                NotesSubFeat()
-                .focused($isEditing)
-                Spacer()
-            }
-            PrimaryButton(buttonDisplay: "checkmark", infinite: true) {
-                dataHelper.saveExpense(to: context)
-                dismiss()
-            }
-            .padding(.vertical, 20)
-            .padding(.horizontal, 10)
-        }
-        .ignoresSafeArea()
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .toolbar {
-            if isEditing {
-                Button("Done") {
-                    isEditing = false
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            else {
-                ActionButton(buttonDisplay: "xmark", infinite: false) {
+                PrimaryButton(buttonDisplay: "checkmark", infinite: true) {
+                    dataHelper.saveExpense(to: context)
                     dismiss()
                 }
-                .disabled(dataHelper.amountValue == 0.0 ? true : false)
+                .padding(.vertical, 22)
+                .padding(.horizontal, 18)
             }
+            .ignoresSafeArea()
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    if isEditing {
+                        Button("Done") {
+                            isEditing = false
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    else {
+                        ActionButton(buttonDisplay: "xmark", infinite: false) {
+                            dataHelper.reset()
+                            dismiss()
+                        }
+                        .disabled(dataHelper.amountValue == 0.0 ? true : false)
+                    }
+                }
+            }
+            .toolbar(.hidden, for: .tabBar)
         }
-        .toolbar(.hidden, for: .tabBar)
     }
 }
 

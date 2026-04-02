@@ -31,14 +31,16 @@ struct PolymorphicButtonContent: View {
             Image(systemName: str)
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
-                    buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW
+                    buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
+                    iconColor: ButtonT.BColor.ColPrimary.valueBC
                 )
         }
         else if UIImage(named: str) != nil {
             Image(str)
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
-                    buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW
+                    buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
+                    iconColor: ButtonT.BColor.ColPrimary.valueBC
                 )
         }
         else {

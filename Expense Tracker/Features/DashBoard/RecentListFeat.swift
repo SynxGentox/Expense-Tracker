@@ -1,44 +1,39 @@
 //
-//  SelectCategoryView.swift
+//  RecentListView.swift
 //  Expense Tracker
 //
-//  Created by Aryan Verma on 30/03/26.
+//  Created by Aryan Verma on 02/04/26.
 //
 
 import SwiftUI
 
-struct CategorySubFeat: View {
+struct RecentListFeat: View {
     @Environment(\.colorScheme) var colScheme
+    
     var body: some View {
         ZStack {
             CardBackground(
                 cornerRadius: CardT.CRadNPad.radius.valueCR,
                 cardWidth: CardT.CWidth.largeW.valueCW,
-                cardHeight: CardT.CHeight.mediumH.cardCH,
+                cardHeight: CardT.CHeight.smallMidH.cardCH,
                 color: CardT.cardColCust(colScheme).valueCC)
             
             VStack {
-                HStack {
-                    Text("Category")
-                        .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                    Spacer()
-                    Button("View All") {
-                    }
-                }
-                
                 HStack {
                     ZStack {
                         CardBackground(
                             cornerRadius: CardT.CRadNPad.radius.valueCR/2,
                             cardWidth: CardT.CWidth.smallW.valueCW,
                             cardHeight: CardT.CHeight.smallH.cardCH,
-                            color:  ButtonT.BColor.ColAccent.valueBC
+                            color:  ButtonT.BColor.ColSysBack.valueBC
                         )
+                        
+                        /// - Category Logo: Logo of this Expenditure Category
                         Image(systemName: "apple.homekit")
                             .buttonIconStyleExt(
                                 buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                 buttonWidth: ButtonT.BWidth.circleW.valueBW,
-                                iconColor: ButtonT.BColor.ColPrimary.valueBC
+                                iconColor: ButtonT.BColor.ColAccent.valueBC
                             )
                     }
                     .shadow(color: ShadowT.SColor.color.valueSC,
@@ -47,27 +42,30 @@ struct CategorySubFeat: View {
                             y: ShadowT.shadowY.valueS)
                     .padding(.trailing)
                     
-                    VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
-                        Text("Clubbing")
+                    HStack {
+                        
+                        /// - Title: Expense Title
+                        VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
+                            Text("Clubbing")
+                                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                            
+                            /// - Category: Expense Category
+                            Text("Entertainment")
+                                .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+                        }
+                        Spacer()
+                        /// - Spent Amount : amout spended this Title
+                        Text("-$6969")
                             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                        Text("Entertainment")
-                            .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+                            .foregroundStyle(.green)
                     }
-                    Spacer()
-//                        Text("^")
-//                            .rotationEffect(Angle(degrees: 90))
                 }
                 
             }
-            .padding(.horizontal)
         }
-        .frame(maxWidth: CardT.CWidth.largeW.valueCW,
-               minHeight: CardT.CHeight.mediumH.cardCH,
-               maxHeight: CardT.CHeight.mediumH.cardCH,
-               alignment: .init(horizontal: .leading, vertical: .top))
     }
 }
 
 #Preview {
-    CategorySubFeat()
+    RecentListFeat()
 }

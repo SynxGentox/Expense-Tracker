@@ -18,13 +18,13 @@ enum FontT {
         switch self {
         case.amountF:
             return UIFontMetrics(forTextStyle: .extraLargeTitle)
-                .scaledValue(for: 60)
+                .scaledValue(for: 50)
         case .titleF:
-            return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 26)
+            return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 24)
         case .primaryF:
-            return UIFontMetrics(forTextStyle: .title2).scaledValue(for: 20)
+            return UIFontMetrics(forTextStyle: .title2).scaledValue(for: 18)
         case .secondaryF:
-            return UIFontMetrics(forTextStyle: .body).scaledValue(for:14)
+            return UIFontMetrics(forTextStyle: .body).scaledValue(for:13.5)
         }
     }
 }
@@ -35,11 +35,13 @@ enum ButtonT {
     enum BWidth {
         case infiniteW
         case circleW
+        case smallW
         
         var valueBW: CGFloat  {
             switch self {
-            case .infiniteW:        return .infinity
-            case .circleW:          return 60
+            case .infiniteW:            return .infinity
+            case .circleW:              return 58
+            case .smallW:              return 40
             }
         }
     }
@@ -47,18 +49,40 @@ enum ButtonT {
     enum BHeight {
         case circleH
         case largeH
+        case smallH
         
         var valusBH: CGFloat  {
             switch self {
-            case .circleH:          return 60
-            case .largeH:           return 80
+            case .circleH:              return 58
+            case .largeH:               return 80
+            case .smallH:               return 40
             }
         }
     }
     
     var valueBP: CGFloat  {
         switch self {
-        case .buttonIcPad:    return 10
+        case .buttonIcPad:              return 10
+        }
+    }
+    
+    enum BColor {
+        case ColWhite
+        case ColBlack
+        case ColAccent
+        case ColPrimary
+        case ColGreen
+        case ColSysBack
+        
+        var valueBC: Color  {
+            switch self {
+            case .ColWhite:        return Color.white
+            case .ColBlack:        return Color.black
+            case .ColAccent:        return Color.accentColor
+            case .ColPrimary:        return Color.primary
+            case .ColGreen:        return Color.green
+            case .ColSysBack:        return Color(UIColor.systemBackground)
+            }
         }
     }
 }
@@ -70,9 +94,9 @@ enum ShadowT {
     
     var valueS: CGFloat  {
         switch self {
-        case .shadowX:              return 0
-        case .shadowY:              return 0
-        case .shadowR:              return 10
+        case .shadowX:                  return 0
+        case .shadowY:                  return 0
+        case .shadowR:                  return 10
         }
     }
     
@@ -81,43 +105,52 @@ enum ShadowT {
         
         var valueSC: Color  {
             switch self {
-            case .color:            return Color.black.opacity(0.15)
+            case .color:                return Color.black.opacity(0.15)
             }
         }
     }
 }
 
 enum CardT {
-    case backCol
-    case iconCol
-    case iconBack
+    case cardColCust(ColorScheme)
+    case cardColPri
+    case cardColAcc
+    case cardColGray
     
     enum CHeight {
         case smallH
+        case xSmallH
         case smallMidH
         case mediumH
         case largeH
+        case xLargeH
         
         var cardCH: CGFloat  {
             switch self {
-            case .smallH:           return 65
-            case .smallMidH:        return 110
-            case .mediumH:          return 130
-            case .largeH:           return 155
+            case .smallH:               return 65
+            case .xSmallH:              return 50
+            case .smallMidH:            return 100
+            case .mediumH:              return 130
+            case .largeH:               return 170
+            case .xLargeH:               return 200
             }
         }
     }
     
     enum CWidth {
         case smallW
+        case smallMidW
         case mediumW
         case largeW
+        case xSmallW
         
         var valueCW: CGFloat  {
             switch self {
-            case .smallW:           return 65
-            case .mediumW:          return 200
-            case .largeW:           return .infinity
+            case .smallW:               return 65
+            case .xSmallW:              return 50
+            case .smallMidW:            return 90
+            case .mediumW:              return 195
+            case .largeW:               return .infinity
             }
         }
     }
@@ -128,17 +161,18 @@ enum CardT {
             
         var valueCR: CGFloat  {
             switch self {
-            case .IconPad:  return 18
-            case .radius:           return 30
+            case .IconPad:              return 18
+            case .radius:               return 27
             }
         }
     }
     
     var valueCC: Color {
         switch self {
-        case .backCol:            return Color(UIColor.systemGray6)
-        case .iconCol:        return Color.accentColor
-        case .iconBack:   return Color(.systemBackground)
+        case .cardColCust(let scheme):  return scheme == .dark ? Color(uiColor: .black) : Color(uiColor: .systemGray6)
+        case .cardColAcc:               return Color.accentColor
+        case .cardColPri:               return Color.primary
+        case .cardColGray:               return Color(UIColor.systemGray6)
         }
     }
 }

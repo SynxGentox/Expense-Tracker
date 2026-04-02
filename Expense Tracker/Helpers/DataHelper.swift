@@ -35,5 +35,13 @@ class DataHelper {
         context.insert(newExpense)
         print("Expense Saved")
     }
+    
+    func reset() {
+        amountValue = nil
+        notesValue = nil
+        dateValue = Date.now
+        category = nil
+        categoryIcon = nil
+    }
 }
 

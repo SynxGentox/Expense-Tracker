@@ -13,7 +13,6 @@ struct AmountInputField: View {
     
     var body: some View {
         @Bindable var amountInput = dataHelper
-        @ScaledMetric var numSize: CGFloat = 60
         TextField(
             fieldLabel,
             value: Binding(
@@ -24,7 +23,7 @@ struct AmountInputField: View {
                         code: Locale.current.currency?.identifier ?? "USD"
                     )
         )
-        .amountFontStyleExt(numSize: numSize)
+        .amountFontStyleExt(numSize: FontT.amountF.valueF)
     }
 }
 

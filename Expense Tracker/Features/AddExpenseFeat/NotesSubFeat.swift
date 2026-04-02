@@ -10,28 +10,33 @@ import SwiftUI
 struct NotesSubFeat: View {
     @Environment(DataHelper.self) private var dataHelper
     @FocusState var isEditing: Bool
+    @Environment(\.colorScheme) var colScheme
     
     
     var body: some View {
         @Bindable var noteText = dataHelper
-        ZStack {
-            CardBackground(
-                cornerRadius: CardT.CRadNPad.radius.valueCR,
-                cardWidth: CardT.CWidth.largeW.valueCW,
-                cardHeight: CardT.CHeight.largeH.cardCH,
-                color: CardT.backCol.valueCC
-            )
-            VStack(alignment: .leading) {
-                TextField("Description?", text: Binding(
-                    get: {noteText.notesValue ?? ""},
-                    set: {noteText.notesValue = $0.isEmpty ? nil : $0}))
-                    .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                    
-                Spacer()
-            }
+        ZStack(alignment: .topLeading) {
+            TextEditor(text: Binding(
+                get: { noteText.notesValue ?? "" },
+                set: { noteText.notesValue = $0.isEmpty ? nil : $0 }
+            ))
+            .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+            .scrollContentBackground(.hidden)
+            .background(.clear)
+            .frame(maxWidth: CardT.CWidth.largeW.valueCW, minHeight: CardT.CHeight.mediumH.cardCH)
             .padding(CardT.CRadNPad.IconPad.valueCR)
+            .background(CardT.cardColCust(colScheme).valueCC)
+            .clipShape(RoundedRectangle(cornerRadius: CardT.CRadNPad.radius.valueCR))
+            .overlay(alignment: .topLeading) {
+                if noteText.notesValue == nil || noteText.notesValue!.isEmpty {
+                    Text("Description?")
+                        .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                        .allowsHitTesting(false)
+                        .padding(25)
+                }
+            }
+            
         }
-        .frame(maxWidth: CardT.CWidth.largeW.valueCW, maxHeight: CardT.CHeight.largeH.cardCH)
     }
 }
 
