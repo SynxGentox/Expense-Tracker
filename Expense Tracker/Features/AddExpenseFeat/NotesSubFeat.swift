@@ -8,27 +8,25 @@
 import SwiftUI
 
 struct NotesSubFeat: View {
-    @Environment(DataHelper.self) private var dataHelper
+    @Binding var notesValue: String?
     @FocusState var isEditing: Bool
-    @Environment(\.colorScheme) var colScheme
     
     
     var body: some View {
-        @Bindable var noteText = dataHelper
         ZStack(alignment: .topLeading) {
             TextEditor(text: Binding(
-                get: { noteText.notesValue ?? "" },
-                set: { noteText.notesValue = $0.isEmpty ? nil : $0 }
+                get: { notesValue ?? "" },
+                set: { notesValue = $0.isEmpty ? nil : $0 }
             ))
             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
             .scrollContentBackground(.hidden)
             .background(.clear)
             .frame(maxWidth: CardT.CWidth.largeW.valueCW, minHeight: CardT.CHeight.mediumH.cardCH)
             .padding(CardT.CRadNPad.IconPad.valueCR)
-            .background(CardT.cardColCust(colScheme).valueCC)
+            .background(CardT.cardColGray.valueCC)
             .clipShape(RoundedRectangle(cornerRadius: CardT.CRadNPad.radius.valueCR))
             .overlay(alignment: .topLeading) {
-                if noteText.notesValue == nil || noteText.notesValue!.isEmpty {
+                if notesValue == nil || notesValue!.isEmpty {
                     Text("Description?")
                         .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                         .allowsHitTesting(false)
@@ -41,6 +39,5 @@ struct NotesSubFeat: View {
 }
 
 #Preview {
-    NotesSubFeat()
-        .environment(DataHelper())
+    NotesSubFeat(notesValue: .constant(""))
 }

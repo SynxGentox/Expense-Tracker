@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct RecentListFeat: View {
+struct RecentListRe: View {
     @Environment(\.colorScheme) var colScheme
-    
+    let expense: ExpensesData
     var body: some View {
         ZStack {
             CardBackground(
                 cornerRadius: CardT.CRadNPad.radius.valueCR,
                 cardWidth: CardT.CWidth.largeW.valueCW,
                 cardHeight: CardT.CHeight.smallMidH.cardCH,
-                color: CardT.cardColCust(colScheme).valueCC)
+                color: CardT.cardColGray.valueCC)
             
-            VStack {
                 HStack {
                     ZStack {
                         CardBackground(
@@ -29,7 +29,7 @@ struct RecentListFeat: View {
                         )
                         
                         /// - Category Logo: Logo of this Expenditure Category
-                        Image(systemName: "apple.homekit")
+                        Image(systemName: expense.categoryIcon)
                             .buttonIconStyleExt(
                                 buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                 buttonWidth: ButtonT.BWidth.circleW.valueBW,
@@ -46,26 +46,43 @@ struct RecentListFeat: View {
                         
                         /// - Title: Expense Title
                         VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
-                            Text("Clubbing")
+                            Text(expense.activityTitle)
                                 .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                             
                             /// - Category: Expense Category
-                            Text("Entertainment")
-                                .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+                            HStack {
+                                Text(expense.category)
+                                Circle()
+                                    .fill(ButtonT.BColor.ColAccent.valueBC)
+                                    .frame(width: 3, height: 3)
+                                Text(expense.date, format: .dateTime.day().month())
+                            }
+                            .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+                            
                         }
                         Spacer()
                         /// - Spent Amount : amout spended this Title
-                        Text("-$6969")
+                        Text(expense.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
                             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                             .foregroundStyle(.green)
                     }
                 }
-                
-            }
+                .padding(.horizontal,20)
         }
     }
 }
 
 #Preview {
-    RecentListFeat()
+    let dummyData = ExpensesData(
+            amount: 45.99,
+            note: "Burger King",
+            date: .now,
+            category: "Food",
+            categoryIcon: "fork.knife",
+            payId: "sss",
+            payMethodIcon: "dog",
+            activityTitle: "blah"
+            // (Add activityTitle here if you added it to your SwiftData model)
+        )
+    RecentListRe(expense: dummyData)
 }

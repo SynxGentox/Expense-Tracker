@@ -10,11 +10,9 @@ import SwiftData
 
 @main
 struct Expense_TrackerApp: App {
-    private let dataHelper: DataHelper = DataHelper()
     var body: some Scene {
         WindowGroup {
             ViewLoader()
-                .environment(dataHelper)
         }
         .modelContainer(for: ExpensesData.self)
     }

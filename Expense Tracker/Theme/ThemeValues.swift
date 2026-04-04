@@ -17,8 +17,8 @@ enum FontT {
     var valueF: CGFloat  {
         switch self {
         case.amountF:
-            return UIFontMetrics(forTextStyle: .extraLargeTitle)
-                .scaledValue(for: 50)
+            return UIFontMetrics(forTextStyle: .largeTitle)
+                .scaledValue(for: 44)
         case .titleF:
             return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 24)
         case .primaryF:
@@ -73,6 +73,7 @@ enum ButtonT {
         case ColPrimary
         case ColGreen
         case ColSysBack
+        case ColSysGray
         
         var valueBC: Color  {
             switch self {
@@ -82,6 +83,7 @@ enum ButtonT {
             case .ColPrimary:        return Color.primary
             case .ColGreen:        return Color.green
             case .ColSysBack:        return Color(UIColor.systemBackground)
+            case .ColSysGray:        return Color(UIColor.systemGray6)
             }
         }
     }
@@ -116,6 +118,20 @@ enum CardT {
     case cardColPri
     case cardColAcc
     case cardColGray
+    case cardColClear
+    
+    
+    enum CMaterial {
+        case cardColThinMaterial
+        case cardColRegularMaterial
+        var valueCM: Material  {
+            switch self {
+            case .cardColThinMaterial:      return .ultraThinMaterial
+            case .cardColRegularMaterial:      return .regularMaterial
+            }
+        }
+        
+    }
     
     enum CHeight {
         case smallH
@@ -132,7 +148,7 @@ enum CardT {
             case .smallMidH:            return 100
             case .mediumH:              return 130
             case .largeH:               return 170
-            case .xLargeH:               return 200
+            case .xLargeH:               return 230
             }
         }
     }
@@ -172,7 +188,8 @@ enum CardT {
         case .cardColCust(let scheme):  return scheme == .dark ? Color(uiColor: .black) : Color(uiColor: .systemGray6)
         case .cardColAcc:               return Color.accentColor
         case .cardColPri:               return Color.primary
-        case .cardColGray:               return Color(UIColor.systemGray6)
+        case .cardColGray:              return Color(UIColor.systemGray6)
+        case .cardColClear:              return Color.clear  
         }
     }
 }

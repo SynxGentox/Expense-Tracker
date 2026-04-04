@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct CategorySubFeat: View {
-    @Environment(\.colorScheme) var colScheme
+    @Binding var category: String
+    @Binding var categoryIcon: String
+    @Binding var activityTitle: String
+    
     var body: some View {
         ZStack {
             CardBackground(
                 cornerRadius: CardT.CRadNPad.radius.valueCR,
                 cardWidth: CardT.CWidth.largeW.valueCW,
                 cardHeight: CardT.CHeight.mediumH.cardCH,
-                color: CardT.cardColCust(colScheme).valueCC)
+                color: CardT.cardColGray.valueCC)
             
             VStack {
                 HStack {
-                    Text("Category")
+                    Text(category)
                         .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                     Spacer()
                     Button("View All") {
@@ -32,13 +35,13 @@ struct CategorySubFeat: View {
                             cornerRadius: CardT.CRadNPad.radius.valueCR/2,
                             cardWidth: CardT.CWidth.smallW.valueCW,
                             cardHeight: CardT.CHeight.smallH.cardCH,
-                            color:  ButtonT.BColor.ColAccent.valueBC
+                            color:  ButtonT.BColor.ColSysBack.valueBC
                         )
-                        Image(systemName: "apple.homekit")
+                        Image(systemName: categoryIcon)
                             .buttonIconStyleExt(
                                 buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                 buttonWidth: ButtonT.BWidth.circleW.valueBW,
-                                iconColor: ButtonT.BColor.ColPrimary.valueBC
+                                iconColor: ButtonT.BColor.ColAccent.valueBC
                             )
                     }
                     .shadow(color: ShadowT.SColor.color.valueSC,
@@ -48,9 +51,9 @@ struct CategorySubFeat: View {
                     .padding(.trailing)
                     
                     VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
-                        Text("Clubbing")
+                        Text(activityTitle)
                             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                        Text("Entertainment")
+                        Text(category)
                             .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
                     }
                     Spacer()
@@ -69,5 +72,5 @@ struct CategorySubFeat: View {
 }
 
 #Preview {
-    CategorySubFeat()
+    CategorySubFeat(category: .constant(""), categoryIcon: .constant(""), activityTitle: .constant(""))
 }

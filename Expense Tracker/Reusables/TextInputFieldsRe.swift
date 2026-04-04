@@ -9,7 +9,6 @@ import SwiftUI
 
 struct InputField: View {
     var fieldLabel: String = "hello"
-    @Environment(DataHelper.self) private var dataHelper
     
     var body: some View {
         textInput
@@ -17,7 +16,6 @@ struct InputField: View {
     
     @ViewBuilder
     var textInput: some View {
-        @Bindable var textFieldInput = dataHelper
         ZStack {
             CardBackground(
                 cornerRadius: CardT.CRadNPad.radius.valueCR,
@@ -42,5 +40,4 @@ struct InputField: View {
 
 #Preview {
     InputField()
-        .environment(DataHelper())
 }

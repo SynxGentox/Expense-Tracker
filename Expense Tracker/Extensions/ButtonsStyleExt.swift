@@ -10,7 +10,7 @@ import SwiftUI
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(Color.accentColor.opacity(0.8))
+            .background(ButtonT.BColor.ColAccent.valueBC)
             .interactiveButtonAddOn(isTapped: configuration.isPressed)
             
     }
@@ -19,7 +19,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct ActionButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(Color(.secondarySystemBackground))
+            .background(ButtonT.BColor.ColSysGray.valueBC)
             .interactiveButtonAddOn(isTapped: configuration.isPressed)
     }
 }

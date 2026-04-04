@@ -8,26 +8,20 @@
 import SwiftUI
 
 struct AmountInputField: View {
-    @Environment(DataHelper.self) private var dataHelper
     let fieldLabel: String = "Amount"
+    @Binding var amountInput: Double?
     
     var body: some View {
-        @Bindable var amountInput = dataHelper
         TextField(
             fieldLabel,
             value: Binding(
-                get: {amountInput.amountValue ?? 0.0},
-                set: {amountInput.amountValue = $0.isZero ? nil : $0}),
-            format:
-                    .currency(
-                        code: Locale.current.currency?.identifier ?? "USD"
-                    )
-        )
+                get: {amountInput ?? 0.0},
+                set: {amountInput = $0.isZero ? nil : $0}),
+            format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
         .amountFontStyleExt(numSize: FontT.amountF.valueF)
     }
 }
 
 #Preview {
-    AmountInputField()
-        .environment(DataHelper())
+    AmountInputField(amountInput: .constant(nil))
 }
