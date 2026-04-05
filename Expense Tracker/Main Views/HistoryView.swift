@@ -15,43 +15,48 @@ struct HistoryView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 0){
-                ScrollView {
-                    Spacer().frame(height: CardT.CHeight.smallH.cardCH)
+            ScrollView {
+                VStack(spacing: 0){
                     HStack {
                         Text("History")
                             .amountFontStyleExt(numSize: FontT.amountF.valueF)
                         Spacer()
                     }
+                    Spacer().frame(height: 30)
+                    Divider()
                     HStack {
                         ForEach(array, id: \.self) { time in
                             ActionButton(buttonDisplay: time, infinite: true) {
-                                    
+                                
                             }
                         }
                     }
                     CardBackground(
                         cornerRadius: CardT.CRadNPad.radius.valueCR,
                         cardWidth: CardT.CWidth.largeW.valueCW,
-                        cardHeight: CardT.CHeight.xLargeH.cardCH + 28,
+                        cardHeight: CardT.CHeight.xxLargeH.cardCH - 30,
                         color: CardT.cardColGray.valueCC)
                     HStack {
                         ForEach(arraydays, id: \.self) { time in
                             ActionButton(buttonDisplay: time, infinite: true) {
-                                    
+                                
                             }
                         }
                     }
-                    .padding(.bottom, 20)
-                        
-                    ForEach(viewModel.expenses) { singleExpense in
-                        RecentListRe(expense: singleExpense)
-                    }
+                    .padding(.bottom, 10)
+                    Divider()
+                        .padding(.bottom)
+                    TransNCatRe(expenses: viewModel.expenses, title: "History", isHistory: true)
                 }
             }
         }
-        .padding(.horizontal, 10)
-        .ignoresSafeArea()
+        .padding(.horizontal, 8)
+        .refreshable {
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            // This closure fires exactly when the user pulls the screen down far enough.
+            // It triggers the native iOS spinning wheel until the function completes.
+            viewModel.fetchData()
+        }
     }
 }
 

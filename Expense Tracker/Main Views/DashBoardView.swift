@@ -22,34 +22,28 @@ struct DashBoardView: View {
     @State private var isPresented: Bool = false
     
     var body: some View {
-        ScrollView {
-            ZStack {
-                VStack(alignment: .leading) {
-                        
-                    Spacer().frame(height: CardT.CHeight.smallH.cardCH)
+        ZStack {
+            ScrollView {
+                VStack {
                     GreetingCardFeat()
+                    Divider()
                     DB_CardFeat()
-                    Spacer().frame(height: 40)
+                    Divider()
+                    Spacer().frame(height: 10)
                     TotalSpentFeat()
-                    Spacer().frame(height: 20)
-                        
-                    HStack {
-                        Text("Recent Tracsactions")
-                            .primaryFontStyleExt(
-                                fontSize: FontT.primaryF.valueF
-                            )
-                        Spacer()
-                        Button("View All") {
-                        }
-                    }
-                    ForEach(viewModel.expenses) { singleExpense in
-                        RecentListRe(expense: singleExpense)
-                    }
+                    Divider()
+                    Spacer().frame(height: 5)
+                    TransNCatRe(expenses: viewModel.expenses, title: "Recent transactions", isHistory: true)
                 }
             }
+            .refreshable {
+                try? await Task.sleep(nanoseconds: 1_200_000_000)
+                // This closure fires exactly when the user pulls the screen down far enough.
+                // It triggers the native iOS spinning wheel until the function completes.
+                viewModel.fetchData()
+            }
         }
-        .padding(.horizontal, 10)
-        .ignoresSafeArea()
+        .padding(.horizontal, 8)
     }
 }
 

@@ -13,46 +13,72 @@ struct DB_CardFeat: View {
             CardBackground(
                 cornerRadius: CardT.CRadNPad.radius.valueCR,
                 cardWidth: CardT.CWidth.largeW.valueCW,
-                cardHeight: CardT.CHeight.xLargeH.cardCH,
+                cardHeight: CardT.CHeight.xxLargeH.cardCH - 30,
                 color: CardT.cardColGray.valueCC)
-            VStack(alignment: .listRowSeparatorLeading) {
+            .overlay {
+                MeshGradient(
+                    width: 3,
+                    height: 3,
+                    points: [
+                        [0.0,0.0],[0.75,0.0],[1.0,1.0],[2.0,2.0],
+                        [0.0,0.5],[0.5,0.5],[1.0,1.0],[1,1],
+                        [1,1.0]
+                    ],
+                    colors: [.black, .white, .green,
+                             .black,  .black,  .white,
+                             .white, .green, .white]
+                )
+                .ignoresSafeArea()
+            }
+            VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack(alignment: .listRowSeparatorLeading) {
-                        Text("Cardholder Name")
-                            .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                        Text("Fedral Express")
+                            .primaryFontStyleExt(
+                                fontSize: FontT.primaryF.valueF
+                            )
                         Text("Debit Card")
                             .secondaryFontStyleExt(
                                 fontSize: FontT.secondaryF.valueF
                             )
                     }
+                    .foregroundStyle(
+                        ButtonT.BColor.ColGrayStatic.valueBC.gradient.quaternary
+                    )
+                    .padding(.top, 5)
+                    
                     Spacer()
+                    
                     Image(systemName: "app.background.dotted")
                         .buttonIconStyleExt(
-                            buttonHeight: ButtonT.BHeight.circleH.valusBH - 12,
-                            buttonWidth: ButtonT.BWidth.circleW.valueBW - 12,
-                            iconColor: ButtonT.BColor.ColPrimary.valueBC
+                            buttonHeight: ButtonT.BHeight.circleH.valusBH - 10,
+                            buttonWidth: ButtonT.BWidth.circleW.valueBW - 10,
+                            iconColor: ButtonT.BColor.ColGreen.valueBC
                         )
                 }
-                .padding(.top, 5)
                 Spacer()
                     .compositingGroup()
                 DB_BalanceFeat()
+                    .foregroundStyle(
+                        ButtonT.BColor.ColGrayStatic.valueBC.gradient.quaternary
+                    )
             }
             .overlay(alignment: .leading) {
                 HStack {
-                    Text("9239 4203 0249 3973")
-                        .primaryFontStyleExt(fontSize: FontT.titleF.valueF)
-                        .foregroundStyle(ButtonT.BColor.ColAccent.valueBC)
-                        .brightness(-0.1)
+                    Text("**** **** **** 3973")
+                        .amountFontStyleExt(numSize: FontT.titleF.valueF)
+                        .foregroundStyle(
+                            ButtonT.BColor.ColBlack.valueBC.gradient.quaternary
+                        )
                 }
             }
             .padding(.leading)
-            .padding(.trailing, 12)
+            .padding(.trailing, 8)
             .padding(.vertical, 8)
         }
         .frame(
             maxWidth: CardT.CWidth.largeW.valueCW,
-            maxHeight: CardT.CHeight.xLargeH.cardCH
+            maxHeight: CardT.CHeight.xxLargeH.cardCH - 30
         )
     }
 }

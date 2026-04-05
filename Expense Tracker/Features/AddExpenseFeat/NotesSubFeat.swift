@@ -30,11 +30,11 @@ struct NotesSubFeat: View {
                     Text("Description?")
                         .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                         .allowsHitTesting(false)
-                        .padding(25)
+                        .padding(26)
                 }
             }
-            
         }
+        .frame(maxWidth: CardT.CWidth.largeW.valueCW, maxHeight: CardT.CHeight.xLargeH.cardCH + 20)
     }
 }
 

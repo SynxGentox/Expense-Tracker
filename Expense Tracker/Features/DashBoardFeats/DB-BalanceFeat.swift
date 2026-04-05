@@ -24,7 +24,7 @@ struct DB_BalanceFeat: View {
                     .primaryFontStyleExt(
                         fontSize: FontT.primaryF.valueF
                     )
-                    .foregroundStyle(Color.green)
+                    .foregroundStyle(Color.green.gradient.quaternary)
                 Spacer()
             }
             .padding(.top, 30)

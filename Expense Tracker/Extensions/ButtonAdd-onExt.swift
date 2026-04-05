@@ -11,11 +11,10 @@ extension View {
     func interactiveButtonAddOn(isTapped: Bool) -> some View {
         self
             .foregroundStyle(.white)
-            .opacity(isTapped ? 0.7 : 1)
-            .scaleEffect(isTapped ? 1.4 : 1)
-            .shadow(color: .black.opacity(0.25), radius: 2.5, x: 5, y: 5)
+            .opacity(isTapped ? 0.8 : 1)
+            .scaleEffect(isTapped ? 0.8 : 1)
             .clipShape(.capsule)
-            .animation(.smooth, value: isTapped)
+            .animation(.bouncy(extraBounce: 0.15), value: isTapped)
             
     }
 }

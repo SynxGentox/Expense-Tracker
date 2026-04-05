@@ -74,6 +74,7 @@ enum ButtonT {
         case ColGreen
         case ColSysBack
         case ColSysGray
+        case ColGrayStatic
         
         var valueBC: Color  {
             switch self {
@@ -81,9 +82,10 @@ enum ButtonT {
             case .ColBlack:        return Color.black
             case .ColAccent:        return Color.accentColor
             case .ColPrimary:        return Color.primary
-            case .ColGreen:        return Color.green
+            case .ColGreen:        return Color(UIColor.systemGreen)
             case .ColSysBack:        return Color(UIColor.systemBackground)
             case .ColSysGray:        return Color(UIColor.systemGray6)
+            case .ColGrayStatic:        return Color.gray
             }
         }
     }
@@ -140,6 +142,7 @@ enum CardT {
         case mediumH
         case largeH
         case xLargeH
+        case xxLargeH
         
         var cardCH: CGFloat  {
             switch self {
@@ -148,7 +151,8 @@ enum CardT {
             case .smallMidH:            return 100
             case .mediumH:              return 130
             case .largeH:               return 170
-            case .xLargeH:               return 230
+            case .xLargeH:              return 200
+            case .xxLargeH:             return 280
             }
         }
     }
@@ -178,7 +182,7 @@ enum CardT {
         var valueCR: CGFloat  {
             switch self {
             case .IconPad:              return 18
-            case .radius:               return 27
+            case .radius:               return 33
             }
         }
     }

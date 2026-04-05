@@ -19,7 +19,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct ActionButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(ButtonT.BColor.ColSysGray.valueBC)
+            .background(ButtonT.BColor.ColSysBack.valueBC)
             .interactiveButtonAddOn(isTapped: configuration.isPressed)
     }
 }

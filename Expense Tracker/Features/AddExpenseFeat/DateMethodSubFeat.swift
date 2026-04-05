@@ -17,7 +17,7 @@ struct DateMethodSubFeat: View {
             ZStack {
                 CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR,
                                cardWidth: CardT.CWidth.largeW.valueCW,
-                               cardHeight: CardT.CHeight.smallMidH.cardCH,
+                               cardHeight: CardT.CHeight.mediumH.cardCH,
                                color: CardT.cardColGray.valueCC)
                 VStack {
                     HStack {
@@ -27,46 +27,53 @@ struct DateMethodSubFeat: View {
                         // add a date picker with date property as default value
                         Spacer()
                     }
+                    
                     Spacer()
                 }
-                .padding()
+                .padding(18)
+                .padding(.leading, 6)
                 .frame(maxWidth: CardT.CWidth.largeW.valueCW,
-                        maxHeight: CardT.CHeight.smallMidH.cardCH
+                        maxHeight: CardT.CHeight.mediumH.cardCH
                  )
             }
             .compositingGroup()
-            Spacer().frame(width: 16)
+            Spacer().frame(width: 8)
             ZStack {
                 CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR,
                                cardWidth: CardT.CWidth.largeW.valueCW,
-                               cardHeight: CardT.CHeight.smallMidH.cardCH,
+                               cardHeight: CardT.CHeight.mediumH.cardCH,
                                color: CardT.cardColGray.valueCC)
                 
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack {
                         HStack {
                             Text("Method")
                                 .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                            Spacer()
                         }
-                        .padding([.leading, .top], 11)
+                        
                         HStack {
+                            Text(payId)
+                                .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+                            Spacer()
                             Image(systemName: payMethodIcon)
                                 .buttonIconStyleExt(
                                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                     buttonWidth: ButtonT.BWidth.circleW.valueBW,
                                     iconColor: ButtonT.BColor.ColPrimary.valueBC
                                 )
-                            Text(payId)
-                                .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
-                            Spacer()
+                            
                         }
                         .compositingGroup()
+                        Spacer()
                     }
                 }
+                .padding([.leading, .vertical], 18)
+                .padding(.trailing, 8)
+                .padding(.leading, 6)
                 .frame(maxWidth: CardT.CWidth.largeW.valueCW,
-                       maxHeight: CardT.CHeight.smallMidH.cardCH
-                )
-                .padding(.leading, 7)
+                       maxHeight: CardT.CHeight.mediumH.cardCH)
+                
             }
             .compositingGroup()
         }
@@ -74,5 +81,5 @@ struct DateMethodSubFeat: View {
 }
 
 #Preview {
-    DateMethodSubFeat(date: .constant(Date()), payId: .constant(""), payMethodIcon: .constant(""))
+    DateMethodSubFeat(date: .constant(Date()), payId: .constant("shias"), payMethodIcon: .constant("document.on.clipboard"))
 }

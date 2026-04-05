@@ -20,18 +20,52 @@ struct ViewLoader: View {
         ZStack {
             if let viewModel {
                 TabView {
-                    Tab.init("", systemImage: "rectangle.3.group.fill") { NavigationStack { DashBoardView() } }
-                    Tab.init("",systemImage: "chart.dots.scatter") { NavigationStack { HistoryView() } }
-                    Tab.init("", systemImage: "person.and.background.dotted", role: .search) { NavigationStack {   }}
-                    Tab("", systemImage: "plus") { NavigationStack { AddExpenseView() } }
+                    Tab.init("", systemImage: "rectangle.3.group.fill") {
+                        NavigationStack {
+                            DashBoardView()
+                                .toolbar {
+                                    ToolbarItem(placement: .topBarTrailing) {
+                                        NavigationLink{
+                                            NavigationStack {  }
+                                        } label: {
+                                            Image(systemName: "bell")
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                    Tab.init("",systemImage: "chart.dots.scatter") {
+                        NavigationStack {
+                            HistoryView()
+                                .toolbar {
+                                    ToolbarItem(placement: .topBarTrailing) {
+                                        NavigationLink{
+                                            NavigationStack { AddExpenseView() }
+                                        } label: {
+                                            Image(systemName: "plus")
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                    Tab.init(
+                        "",
+                        systemImage: "person.and.background.dotted",
+                        role: .search
+                    ) {
+                        NavigationStack {   }
+                    }
+                    Tab("", systemImage: "creditcard.fill") {
+                        NavigationStack {  }
+                    }
                 }
                 .environment(viewModel)
             } else {
                 SkeletonLoadingView()
-                .onAppear {
-                    let repo = SwiftDataExpenseRepository(data: context)
-                    viewModel = ExpenseVM(data: repo)
-                }
+                    .onAppear {
+                        let repo = SwiftDataExpenseRepository(data: context)
+                        viewModel = ExpenseVM(data: repo)
+                    }
             }
         }
         .ignoresSafeArea()

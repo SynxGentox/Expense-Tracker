@@ -17,14 +17,11 @@ struct AddExpenseView: View {
     @State private var categoryInput: String = "Unknown"
     @State private var categoryIcon: String = "questionmark.square"
     @State private var payId: String = "Cash"
-    @State private var payMethodIcon: String = "cash"
+    @State private var payMethodIcon: String = "document.on.clipboard"
     @State private var activityTitle: String = "Unknown"
     
     var body: some View {
-        
-        VStack(spacing: 0) {
-            ScrollView {
-                Spacer().frame(height: CardT.CHeight.mediumH.cardCH)
+        VStack {
                 HStack {
                     Text("How much did you spend?")
                         .primaryFontStyleExt(
@@ -32,11 +29,11 @@ struct AddExpenseView: View {
                         )
                     Spacer()
                 }
+            Spacer().frame(height: 30)
                 AmountInputField(amountInput: $amountInput)
                     .keyboardType(.numberPad)
                     .focused($isEditing)
-                    .padding(.bottom)
-                    
+            Spacer().frame(height: 20)
                 CategorySubFeat(
                     category: $categoryInput,
                     categoryIcon: $categoryIcon,
@@ -55,7 +52,7 @@ struct AddExpenseView: View {
                 NotesSubFeat(notesValue: $notesInput)
                     .focused($isEditing)
                 Spacer().frame(height: 0)
-            }
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .toolbar {
@@ -64,7 +61,7 @@ struct AddExpenseView: View {
                     Button {
                         isEditing = false
                     } label: {
-                        Text("Done")
+                        Image(systemName: "checkmark")
                     }
                     .buttonStyle(.borderedProminent)
                 }
@@ -80,9 +77,6 @@ struct AddExpenseView: View {
                             payMethodIcon: payMethodIcon,
                             activityTitle: activityTitle
                         )
-                        print(
-                            "1. SaveTapped, amt: \(String(describing: amountInput ?? 0.0))"
-                        )
                     } label: {
                         Text("Save")
                     }.buttonStyle(.borderedProminent)
@@ -91,7 +85,7 @@ struct AddExpenseView: View {
         }
             
         //.toolbar(.hidden, for: .tabBar)
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 8)
         .ignoresSafeArea()
     }
 }

@@ -14,30 +14,31 @@ struct GreetingCardFeat: View {
             VStack(alignment: .listRowSeparatorLeading) {
                 /// - User Name:    A string represents the data
                 Text("Aryan")
-                    .amountFontStyleExt(numSize: FontT.amountF.valueF - 10)
+                    .amountFontStyleExt(numSize: FontT.amountF.valueF)
                 /// - Greeting: String represents the data
                 Text("Welcome Back!")
-                    .secondaryFontStyleExt(
-                        fontSize: FontT.amountF.valueF - 16
+                    .primaryFontStyleExt(
+                        fontSize: FontT.titleF.valueF + 5
                     )
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.green.gradient.quaternary)
+                    .brightness(-0.08)
                     Spacer()
             }
             Spacer()
                 
-            VStack {
-                Button{
-                    
-                } label: {
-                    Image(systemName: "bell")
-                        .buttonIconStyleExt(
-                            buttonHeight: ButtonT.BHeight.smallH.valusBH + 8,
-                            buttonWidth: ButtonT.BWidth.smallW.valueBW + 8,
-                            iconColor: ButtonT.BColor.ColPrimary.valueBC
-                        )
-                }
-                Spacer()
-            }
+//            VStack {
+//                Button{
+//                    
+//                } label: {
+//                    Image(systemName: "bell")
+//                        .buttonIconStyleExt(
+//                            buttonHeight: ButtonT.BHeight.smallH.valusBH + 8,
+//                            buttonWidth: ButtonT.BWidth.smallW.valueBW + 8,
+//                            iconColor: ButtonT.BColor.ColPrimary.valueBC
+//                        )
+//                }
+//                Spacer()
+//            }
         }
         .frame(
             maxWidth: CardT.CWidth.largeW.valueCW,
