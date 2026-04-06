@@ -11,23 +11,25 @@ extension View {
     func interactiveButtonAddOn(isTapped: Bool) -> some View {
         self
             .foregroundStyle(.white)
-            .opacity(isTapped ? 0.8 : 1)
+            .opacity(isTapped ? 0.7 : 1)
             .scaleEffect(isTapped ? 0.8 : 1)
             .clipShape(.capsule)
-            .animation(.bouncy(extraBounce: 0.15), value: isTapped)
+            .animation(.bouncy, value: isTapped)
             
     }
 }
 
 extension Image {
-    func buttonIconStyleExt(buttonHeight: CGFloat, buttonWidth: CGFloat, iconColor: Color) -> some View {
+    func buttonIconStyleExt(buttonHeight: CGFloat, buttonWidth: CGFloat, iconColor: Color, alignLeft: Bool) -> some View {
         self
             .resizable()
             .scaledToFit()
             .fontWeight(.light)
             .foregroundStyle(iconColor)
             .padding(ButtonT.buttonIcPad.valueBP)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignLeft ? .leading : .center)
             .frame(maxWidth: buttonWidth, maxHeight: buttonHeight)
+            
             
     }
 }

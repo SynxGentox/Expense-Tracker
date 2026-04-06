@@ -11,7 +11,6 @@ import SwiftData
 struct CategoryView: View {
     @Environment(ExpenseVM.self) private var viewModel
     var body: some View {
-        TransNCatRe(expenses: viewModel.expenses, title: "Category", isHistory: false)
     }
 }
 

@@ -1,23 +1,27 @@
 //
-//  NotificationView.swift
+//  ProfileView.swift
 //  Expense Tracker
 //
-//  Created by Aryan Verma on 05/04/26.
+//  Created by Aryan Verma on 06/04/26.
 //
 
 import SwiftUI
 import SwiftData
 
-struct NotificationView: View {
+struct ProfileView: View {
     @Environment(ExpenseVM.self) private var viewModel
     var body: some View {
         
         NavigationStack {
-            Image(systemName: "bell.badge.slash")
-                .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.circleH.valusBH, buttonWidth: ButtonT.BWidth.circleW.valueBW, iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: false)
-            Text("No notifications")
-                .navigationTitle("Notifications")
-                .toolbarVisibility(.hidden, for: .tabBar)
+            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                .navigationTitle("Profile")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing){
+                        NavigationLink(destination: SettingsView()) {
+                            Image(systemName: "gear")
+                        }
+                    }
+                }
                 .refreshable {
                     try? await Task.sleep(nanoseconds: 3_000_000_000)
                     // This closure fires exactly when the user pulls the screen down far enough.
@@ -25,7 +29,6 @@ struct NotificationView: View {
                     viewModel.fetchData()
                 }
         }
-        
     }
 }
 
@@ -38,7 +41,6 @@ struct NotificationView: View {
     
     //create the repo using the fake database
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
-    
-    NotificationView()
+    ProfileView()
         .environment(ExpenseVM(data: repo))
 }

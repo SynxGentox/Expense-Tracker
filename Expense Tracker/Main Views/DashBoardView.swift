@@ -24,20 +24,22 @@ struct DashBoardView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack {
-                    GreetingCardFeat()
-                    Divider()
-                    DB_CardFeat()
-                    Divider()
-                    Spacer().frame(height: 10)
-                    TotalSpentFeat()
-                    Divider()
-                    Spacer().frame(height: 5)
-                    TransNCatRe(expenses: viewModel.expenses, title: "Recent transactions", isHistory: true)
+                ScrollViewReader { _ in
+                    VStack {
+                        GreetingCardFeat()
+                        Divider()
+                        DB_CardFeat(balance: viewModel.remainingBalance)
+                        Divider()
+                        Spacer().frame(height: 10)
+                        TotalSpentFeat(totalSpent: viewModel.totalSpent, totalBudget: viewModel.totalBudget)
+                        Divider()
+                        Spacer().frame(height: 5)
+                        TransNCatRe(displayExpenses: viewModel.displayExpenses, title: "Recent transactions", isHistory: true, showExpandButton: true)
+                    }
                 }
             }
             .refreshable {
-                try? await Task.sleep(nanoseconds: 1_200_000_000)
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
                 // This closure fires exactly when the user pulls the screen down far enough.
                 // It triggers the native iOS spinning wheel until the function completes.
                 viewModel.fetchData()

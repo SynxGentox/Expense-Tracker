@@ -5,7 +5,7 @@
 //  Created by Aryan Verma on 04/04/26.
 //
 
-import SwiftUI
+import Foundation
 import SwiftData
 
 class SwiftDataExpenseRepository: ExpensesRepository {

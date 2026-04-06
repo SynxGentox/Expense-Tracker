@@ -45,7 +45,7 @@ struct CategorySubFeat: View {
                                 .buttonIconStyleExt(
                                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                     buttonWidth: ButtonT.BWidth.circleW.valueBW,
-                                    iconColor: ButtonT.BColor.ColGreen.valueBC
+                                    iconColor: ButtonT.BColor.ColGreen.valueBC, alignLeft: false
                                 )
                         }
                         .shadow(color: ShadowT.SColor.color.valueSC,

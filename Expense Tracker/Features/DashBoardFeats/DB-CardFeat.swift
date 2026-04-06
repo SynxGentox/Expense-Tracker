@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DB_CardFeat: View {
+    let balance: Double
     var body: some View {
         ZStack {
             CardBackground(
@@ -53,12 +54,13 @@ struct DB_CardFeat: View {
                         .buttonIconStyleExt(
                             buttonHeight: ButtonT.BHeight.circleH.valusBH - 10,
                             buttonWidth: ButtonT.BWidth.circleW.valueBW - 10,
-                            iconColor: ButtonT.BColor.ColGreen.valueBC
+                            iconColor: ButtonT.BColor.ColGreen.valueBC,
+                            alignLeft: false
                         )
                 }
                 Spacer()
                     .compositingGroup()
-                DB_BalanceFeat()
+                DB_BalanceFeat(balance: balance)
                     .foregroundStyle(
                         ButtonT.BColor.ColGrayStatic.valueBC.gradient.quaternary
                     )
@@ -84,5 +86,5 @@ struct DB_CardFeat: View {
 }
 
 #Preview {
-    DB_CardFeat()
+    DB_CardFeat(balance: 7)
 }

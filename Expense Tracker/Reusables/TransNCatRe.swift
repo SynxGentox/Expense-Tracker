@@ -8,52 +8,50 @@
 import SwiftUI
 
 struct TransNCatRe: View {
-    let expenses: [ExpensesData]
+    let displayExpenses: [ExpensesData]
     let title: String
     let isHistory: Bool
+    let showExpandButton: Bool
     var body: some View {
-        ScrollViewReader {_ in
-            ZStack {
-                Rectangle()
-                    .fill(.clear)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            HStack {
+                Text(title)
+                    .primaryFontStyleExt(
+                        fontSize: FontT.primaryF.valueF
+                    )
                     .allowsHitTesting(false)
+                Spacer()
+                if showExpandButton {
+                    NavigationLink("View all", destination: HistoryView())
+                }
+            }
+                    
+            .padding(.bottom)
+                    
+            if !displayExpenses.isEmpty {
+                ForEach(displayExpenses) { singleExpense in
+                    RecentListRe(expense: singleExpense, isHistory: isHistory)
+                }
+            }
+            Spacer()
+        }
+        .overlay(alignment: .center) {
+            if displayExpenses.isEmpty && isHistory {
                 VStack {
-                    HStack {
-                        Text(title)
-                            .primaryFontStyleExt(
-                                fontSize: FontT.primaryF.valueF
+                    NavigationLink(destination: AddExpenseView()) {
+                        Image(systemName: "plus")
+                            .buttonIconStyleExt(
+                                buttonHeight: ButtonT.BHeight.smallH.valusBH,
+                                buttonWidth: ButtonT.BWidth.smallW.valueBW,
+                                iconColor: ButtonT.BColor.ColGreen.valueBC,
+                                alignLeft: false
                             )
-                            .allowsHitTesting(false)
-                        Spacer()
-                        if isHistory {
-                            Button("View all") {
-                            }
-                        }
                     }
-                    
-                    .padding(.bottom)
-                    
-                    if !expenses.isEmpty {
-                        ForEach(expenses) { singleExpense in
-                            RecentListRe(expense: singleExpense, isHistory: isHistory)
-                        }
-                    }
-                    Spacer()
+                    .opacity(0.5)
                 }
-                .overlay(alignment: .center) {
-                    if expenses.isEmpty && isHistory {
-                        VStack {
-                            ActionButton(buttonDisplay: "plus", infinite: false) {
-                                
-                            }
-                            .opacity(0.5)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .frame(minHeight: displayExpenses.isEmpty ? CardT.CHeight.xxLargeH.cardCH : .zero, maxHeight: displayExpenses.isEmpty ? CardT.CHeight.xxLargeH.cardCH : .infinity)
     }
 }
 
@@ -69,5 +67,10 @@ struct TransNCatRe: View {
         activityTitle: "blah"
         // (Add activityTitle here if you added it to your SwiftData model)
     ))
-    TransNCatRe(expenses: dummyData, title: "Recent", isHistory: true)
+    TransNCatRe(
+        displayExpenses: dummyData,
+        title: "Recent",
+        isHistory: true,
+        showExpandButton: false
+    )
 }

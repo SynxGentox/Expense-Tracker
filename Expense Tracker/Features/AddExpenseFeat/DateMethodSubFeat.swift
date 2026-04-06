@@ -60,7 +60,8 @@ struct DateMethodSubFeat: View {
                                 .buttonIconStyleExt(
                                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                                     buttonWidth: ButtonT.BWidth.circleW.valueBW,
-                                    iconColor: ButtonT.BColor.ColPrimary.valueBC
+                                    iconColor: ButtonT.BColor.ColPrimary.valueBC,
+                                    alignLeft: false
                                 )
                             
                         }

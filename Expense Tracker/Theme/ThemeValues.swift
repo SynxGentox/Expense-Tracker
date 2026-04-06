@@ -182,7 +182,7 @@ enum CardT {
         var valueCR: CGFloat  {
             switch self {
             case .IconPad:              return 18
-            case .radius:               return 33
+            case .radius:               return 30
             }
         }
     }

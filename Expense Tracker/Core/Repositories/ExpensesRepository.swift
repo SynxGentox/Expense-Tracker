@@ -5,7 +5,7 @@
 //  Created by Aryan Verma on 03/04/26.
 //
 
-import SwiftUI
+import Foundation
 import SwiftData
 
 protocol ExpensesRepository {

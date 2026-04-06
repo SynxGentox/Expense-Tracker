@@ -26,7 +26,7 @@ struct HistoryView: View {
                     Divider()
                     HStack {
                         ForEach(array, id: \.self) { time in
-                            ActionButton(buttonDisplay: time, infinite: true) {
+                            ActionButton(buttonDisplay: time, infinite: true, alignLeft: false) {
                                 
                             }
                         }
@@ -38,7 +38,7 @@ struct HistoryView: View {
                         color: CardT.cardColGray.valueCC)
                     HStack {
                         ForEach(arraydays, id: \.self) { time in
-                            ActionButton(buttonDisplay: time, infinite: true) {
+                            ActionButton(buttonDisplay: time, infinite: true, alignLeft: false) {
                                 
                             }
                         }
@@ -46,13 +46,13 @@ struct HistoryView: View {
                     .padding(.bottom, 10)
                     Divider()
                         .padding(.bottom)
-                    TransNCatRe(expenses: viewModel.expenses, title: "History", isHistory: true)
+                    TransNCatRe(displayExpenses: viewModel.displayExpenses, title: "History", isHistory: true, showExpandButton: false)
                 }
             }
         }
         .padding(.horizontal, 8)
         .refreshable {
-            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
             // This closure fires exactly when the user pulls the screen down far enough.
             // It triggers the native iOS spinning wheel until the function completes.
             viewModel.fetchData()

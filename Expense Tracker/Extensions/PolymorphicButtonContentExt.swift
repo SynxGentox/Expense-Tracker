@@ -21,7 +21,7 @@ import SwiftUI
 struct PolymorphicButtonContent: View {
     let isImage: String
     let infinite: Bool
-    
+    let alignLeft: Bool
     var body: some View {
         isImage(str: isImage)
     }
@@ -32,7 +32,7 @@ struct PolymorphicButtonContent: View {
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                     buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
-                    iconColor: ButtonT.BColor.ColPrimary.valueBC
+                    iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: alignLeft
                 )
         }
         else if UIImage(named: str) != nil {
@@ -40,7 +40,7 @@ struct PolymorphicButtonContent: View {
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                     buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
-                    iconColor: ButtonT.BColor.ColPrimary.valueBC
+                    iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: alignLeft
                 )
         }
         else {

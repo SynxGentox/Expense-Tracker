@@ -83,6 +83,7 @@ struct AddExpenseView: View {
                 }
             }
         }
+        .toolbarVisibility(.hidden, for: .tabBar)
             
         //.toolbar(.hidden, for: .tabBar)
         .padding(.horizontal, 8)

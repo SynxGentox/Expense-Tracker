@@ -13,133 +13,165 @@ struct RecentListRe: View {
     @State var isExpanded: Bool = false
     let expense: ExpensesData
     let isHistory: Bool
+    
     var body: some View {
-        
-        ZStack(alignment: .top) {
-            CardBackground(
-                cornerRadius: CardT.CRadNPad.radius.valueCR,
-                cardWidth: CardT.CWidth.largeW.valueCW,
-                cardHeight: isExpanded && isHistory ? CardT.CHeight.xxLargeH.cardCH : CardT.CHeight.smallMidH.cardCH,
-                color: CardT.cardColGray.valueCC)
-            .onTapGesture {
-                withAnimation(.bouncy(extraBounce: 0.15)) {
-                    isExpanded.toggle()
-                }
-            }
-            
-            VStack {
-                VStack {
-                    HStack {
-                        ZStack {
-                            CardBackground(
-                                cornerRadius: CardT.CRadNPad.radius.valueCR/2,
-                                cardWidth: CardT.CWidth.smallW.valueCW,
-                                cardHeight: CardT.CHeight.smallH.cardCH,
-                                color:  ButtonT.BColor.ColSysBack.valueBC
-                            )
+        VStack(alignment: .leading) {
+            HStack {
+                ZStack {
+                    CardBackground(
+                        cornerRadius: CardT.CRadNPad.radius.valueCR/2,
+                        cardWidth: CardT.CWidth.smallW.valueCW,
+                        cardHeight: CardT.CHeight.smallH.cardCH,
+                        color:  ButtonT.BColor.ColSysBack.valueBC
+                    )
                             
-                            /// - Category Logo: Logo of this Expenditure Category
-                            Image(systemName: expense.categoryIcon)
-                                .buttonIconStyleExt(
-                                    buttonHeight: ButtonT.BHeight.circleH.valusBH,
-                                    buttonWidth: ButtonT.BWidth.circleW.valueBW,
-                                    iconColor: ButtonT.BColor.ColGreen.valueBC
-                                )
-                        }
-                        .shadow(color: ShadowT.SColor.color.valueSC,
-                                radius: ShadowT.shadowR.valueS,
-                                x: ShadowT.shadowX.valueS,
-                                y: ShadowT.shadowY.valueS)
-                        .padding(.trailing)
+                    /// - Category Logo: Logo of this Expenditure Category
+                    Image(systemName: expense.categoryIcon)
+                        .buttonIconStyleExt(
+                            buttonHeight: ButtonT.BHeight.circleH.valusBH,
+                            buttonWidth: ButtonT.BWidth.circleW.valueBW,
+                            iconColor: ButtonT.BColor.ColGreen.valueBC, alignLeft: false
+                        )
+                }
+                .shadow(color: ShadowT.SColor.color.valueSC,
+                        radius: ShadowT.shadowR.valueS,
+                        x: ShadowT.shadowX.valueS,
+                        y: ShadowT.shadowY.valueS)
+                .padding(.trailing)
                         
-                        HStack {
-                            /// - Title: Expense Title
-                            VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
-                                Text(isHistory ? expense.activityTitle : expense.category)
-                                    .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                HStack {
+                    /// - Title: Expense Title
+                    VStack(alignment: .listRowSeparatorLeading, spacing: 0) {
+                        Text(
+                            isHistory ? expense.activityTitle : expense.category
+                        )
+                        .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                                 
-                                /// - Category: Expense Category
-                                if isHistory {
-                                    HStack {
-                                        Text(isHistory ? expense.category : "")
-                                        Circle()
-                                            .fill(ButtonT.BColor.ColAccent.valueBC)
-                                            .frame(width: 3, height: 3)
-                                        Text(expense.date, format: .dateTime.day().month())
-                                    }
-                                    .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
-                                }
+                        /// - Category: Expense Category
+                        if isHistory {
+                            HStack {
+                                Text(isHistory ? expense.category : "")
+                                Circle()
+                                    .fill(ButtonT.BColor.ColAccent.valueBC)
+                                    .frame(width: 3, height: 3)
+                                Text(
+                                    expense.date,
+                                    format: .dateTime.day().month()
+                                )
                             }
-                            Spacer()
-                            /// - Spent Amount : amout spended this Title
-                            if isHistory {
-                                Text(expense.amount, format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
-                                    .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                                    .foregroundStyle(.green)
-                            }
+                            .secondaryFontStyleExt(
+                                fontSize: FontT.secondaryF.valueF
+                            )
                         }
                     }
-                    .padding(.horizontal,20)
+                    Spacer()
+                    /// - Spent Amount : amout spended this Title
+                    if isHistory {
+                        Text(
+                            expense.amount,
+                            format:
+                                    .currency(
+                                        code: Locale.current.currency?.identifier ?? "USD"
+                                    )
+                        )
+                        .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                        .foregroundStyle(.green)
+                    }
                 }
-                .compositingGroup()
-                .padding(.top, 18)
-                .allowsHitTesting(false)
-                if isExpanded && isHistory {
-                    Divider()
-                    VStack(alignment: .leading, spacing: 0) {
+            }
+            .padding(.horizontal,18)
+            .compositingGroup()
+            .allowsHitTesting(false)
+            if isExpanded && isHistory {
+                Divider()
+                Spacer().frame(height: 8)
+                VStack(alignment: .leading, spacing: 0) {
+                    VStack {
                         HStack {
                             Text("From")
-                                .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                .secondaryFontStyleExt(
+                                    fontSize: FontT.primaryF.valueF
+                                )
                             Spacer()
-                            Image(systemName: "rectangle.fill.on.rectangle.angled.fill")
-                                .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.smallH.valusBH, buttonWidth: ButtonT.BWidth.smallW.valueBW, iconColor: ButtonT.BColor.ColGreen.valueBC)
+                            Image(
+                                systemName: "rectangle.fill.on.rectangle.angled.fill"
+                            )
+                            .buttonIconStyleExt(
+                                buttonHeight: ButtonT.BHeight.smallH.valusBH,
+                                buttonWidth: ButtonT.BWidth.smallW.valueBW,
+                                iconColor: ButtonT.BColor.ColGreen.valueBC, alignLeft: false
+                            )
                             Text(expense.payId)
-                                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                .primaryFontStyleExt(
+                                    fontSize: FontT.primaryF.valueF
+                                )
                             Image(systemName: "document.on.clipboard")
-                                .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.smallH.valusBH, buttonWidth: ButtonT.BWidth.smallW.valueBW, iconColor: ButtonT.BColor.ColGrayStatic.valueBC)
+                                .buttonIconStyleExt(
+                                    buttonHeight: ButtonT.BHeight.smallH.valusBH,
+                                    buttonWidth: ButtonT.BWidth.smallW.valueBW,
+                                    iconColor: ButtonT.BColor.ColGrayStatic.valueBC,
+                                    alignLeft: false
+                                )
                         }
-                        
+                        Spacer().frame(height: 0)
                         HStack {
                             Text("To")
-                                .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                .secondaryFontStyleExt(
+                                    fontSize: FontT.primaryF.valueF
+                                )
                             Spacer()
                             Text("Reciever")
-                                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                .primaryFontStyleExt(
+                                    fontSize: FontT.primaryF.valueF
+                                )
                             Image(systemName: "document.on.clipboard")
-                                .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.smallH.valusBH, buttonWidth: ButtonT.BWidth.smallW.valueBW, iconColor: ButtonT.BColor.ColGrayStatic.valueBC)
+                                .buttonIconStyleExt(
+                                    buttonHeight: ButtonT.BHeight.smallH.valusBH,
+                                    buttonWidth: ButtonT.BWidth.smallW.valueBW,
+                                    iconColor: ButtonT.BColor.ColGrayStatic.valueBC, alignLeft: false
+                                )
                         }
-                        Divider()
-                            .padding(.trailing, 10)
-                        HStack {
-                            CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR/2,
-                                           cardWidth: CardT.CWidth.largeW.valueCW,
-                                           cardHeight: CardT.CHeight.smallH.cardCH,
-                                           color: ButtonT.BColor.ColWhite.valueBC)
-                        }
-                        .padding(.trailing,10)
-                        .padding(.top,18)
-                        .padding(.bottom,18)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .padding(.leading,20)
-                    .padding(.trailing,10)
+                    Divider()
+                    Spacer().frame(height: 0)
+                        .padding(.bottom)
+                    HStack(alignment: .bottom) {
+                        CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR/2,
+                                       cardWidth: CardT.CWidth.largeW.valueCW,
+                                       cardHeight: CardT.CHeight.smallH.cardCH,
+                                       color: ButtonT.BColor.ColWhite.valueBC)
+                    }
                 }
+                .padding(.horizontal, 18)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: CardT.CHeight.xxLargeH.cardCH, alignment: .top)
+        .frame(
+            maxWidth: .infinity,
+            minHeight: isExpanded && isHistory ? CardT.CHeight.xxLargeH.cardCH : CardT.CHeight.smallMidH.cardCH,
+            maxHeight: isExpanded && isHistory ? CardT.CHeight.xxLargeH.cardCH : CardT.CHeight.smallMidH.cardCH
+        )
+        .background(
+            RoundedRectangle(cornerRadius: CardT.CRadNPad.radius.valueCR, style: .continuous)
+                .fill(CardT.cardColGray.valueCC)
+        )
+        .onTapGesture {
+            withAnimation(.bouncy(extraBounce: 0.15)) {
+                isExpanded.toggle()
+            }
+        }
     }
 }
 
 #Preview {
     let dummyData = ExpensesData(
-            amount: 45.99,
-            note: "Burger King",
-            date: .now,
-            category: "Food",
-            categoryIcon: "fork.knife",
-            payId: "xyz",
-            payMethodIcon: "dog",
-            activityTitle: "blah"
-        )
+        amount: 45.99,
+        note: "Burger King",
+        date: .now,
+        category: "Food",
+        categoryIcon: "fork.knife",
+        payId: "xyz",
+        payMethodIcon: "dog",
+        activityTitle: "blah"
+    )
     RecentListRe(expense: dummyData, isHistory: true)
 }

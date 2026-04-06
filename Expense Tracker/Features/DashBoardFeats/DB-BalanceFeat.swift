@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DB_BalanceFeat: View {
+    let balance: Double
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -15,19 +16,11 @@ struct DB_BalanceFeat: View {
                     .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                 
                 /// - Balance: Total Balance Left
-                Text(0.00,
+                Text(balance,
                      format:.currency(code: Locale.current.currency?.identifier ?? "USD"))
-                .amountFontStyleExt(numSize: FontT.titleF.valueF + 10)
+                .amountFontStyleExt(numSize: FontT.amountF.valueF - 5)
             }
-            HStack {
-                Text("+ 2.5_%")
-                    .primaryFontStyleExt(
-                        fontSize: FontT.primaryF.valueF
-                    )
-                    .foregroundStyle(Color.green.gradient.quaternary)
-                Spacer()
-            }
-            .padding(.top, 30)
+            Spacer()
         }
         .frame(
             maxWidth: CardT.CWidth.largeW.valueCW,
@@ -37,5 +30,5 @@ struct DB_BalanceFeat: View {
 }
 
 #Preview {
-    DB_BalanceFeat()
+    DB_BalanceFeat(balance: 7.0)
 }

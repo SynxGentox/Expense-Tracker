@@ -10,6 +10,7 @@ import SwiftUI
 struct PrimaryButton: View {
     let buttonDisplay: String
     let infinite: Bool
+    let alignLeft: Bool
     let action: () -> Void
     
     
@@ -18,7 +19,8 @@ struct PrimaryButton: View {
             Button(action: action) {
                 PolymorphicButtonContent(
                     isImage: buttonDisplay,
-                    infinite: infinite
+                    infinite: infinite,
+                    alignLeft: alignLeft
                 )
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -29,6 +31,7 @@ struct PrimaryButton: View {
 struct PrimaryNavigationButton<Destination: View>: View {
     let buttonDisplay: String
     let infinite: Bool
+    let alignLeft: Bool
     let destination: Destination
     
     
@@ -37,7 +40,8 @@ struct PrimaryNavigationButton<Destination: View>: View {
             NavigationLink(destination: destination) {
                 PolymorphicButtonContent(
                     isImage: buttonDisplay,
-                    infinite: infinite
+                    infinite: infinite,
+                    alignLeft: alignLeft
                 )
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -46,7 +50,7 @@ struct PrimaryNavigationButton<Destination: View>: View {
 }
 
 #Preview {
-    PrimaryButton(buttonDisplay: "apple.homekit", infinite: false, action: {})
+    PrimaryButton(buttonDisplay: "apple.homekit", infinite: false, alignLeft: false, action: {})
 }
 
 //#Preview {
