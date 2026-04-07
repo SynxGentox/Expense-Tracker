@@ -18,7 +18,6 @@ class SwiftDataExpenseRepository: ExpensesRepository {
     func addExpense(expense: ExpensesData) throws {
         data.insert(expense)
         try data.save()
-        print("3. SaveTapped, amt: \(String(describing: expense.amount))")
         
         
     }

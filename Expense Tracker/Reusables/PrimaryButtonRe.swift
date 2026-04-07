@@ -34,17 +34,20 @@ struct PrimaryNavigationButton<Destination: View>: View {
     let alignLeft: Bool
     let destination: Destination
     
-    
     var body: some View {
         VStack {
-            NavigationLink(destination: destination) {
+            NavigationLink(value: "Primary") {
                 PolymorphicButtonContent(
                     isImage: buttonDisplay,
                     infinite: infinite,
                     alignLeft: alignLeft
                 )
             }
+            .navigationDestination(for: String.self) { _ in
+                destination
+            }
             .buttonStyle(PrimaryButtonStyle())
+            
         }
     }
 }

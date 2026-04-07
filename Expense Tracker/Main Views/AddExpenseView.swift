@@ -19,6 +19,8 @@ struct AddExpenseView: View {
     @State private var payId: String = "Cash"
     @State private var payMethodIcon: String = "document.on.clipboard"
     @State private var activityTitle: String = "Unknown"
+    @State private var hapticCount = 0
+    
     
     var body: some View {
         VStack {
@@ -34,22 +36,21 @@ struct AddExpenseView: View {
                     .keyboardType(.numberPad)
                     .focused($isEditing)
             Spacer().frame(height: 20)
-                CategorySubFeat(
+                CategoryFeat(
                     category: $categoryInput,
                     categoryIcon: $categoryIcon,
                     activityTitle: $activityTitle
                 )
                 Spacer().frame(height: 0)
                     
-                DateMethodSubFeat(
-                    date: $dateInput,
+                DateMethodFeat(
+                    viewModel: viewModel,
                     payId: $payId,
                     payMethodIcon: $payMethodIcon
                 )
-                .padding(.vertical)
                 Spacer().frame(height: 0)
                     
-                NotesSubFeat(notesValue: $notesInput)
+                NotesFeat(notesValue: $notesInput)
                     .focused($isEditing)
                 Spacer().frame(height: 0)
             
@@ -60,13 +61,16 @@ struct AddExpenseView: View {
                 if isEditing {
                     Button {
                         isEditing = false
+                        hapticCount += 1
                     } label: {
                         Image(systemName: "checkmark")
                     }
                     .buttonStyle(.borderedProminent)
+                    .sensoryFeedback(.success, trigger: hapticCount)
                 }
                 else {
                     Button {
+                        
                         viewModel.saveData(
                             amount: amountInput ?? 0.0,
                             date: dateInput,
@@ -80,6 +84,8 @@ struct AddExpenseView: View {
                     } label: {
                         Text("Save")
                     }.buttonStyle(.borderedProminent)
+                        .sensoryFeedback(.success, trigger: viewModel.sensfeedback)
+                        .sensoryFeedback(.error, trigger: viewModel.errorMessage)
                 }
             }
         }

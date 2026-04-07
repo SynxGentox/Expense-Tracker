@@ -11,14 +11,15 @@ import SwiftData
 struct ProfileView: View {
     @Environment(ExpenseVM.self) private var viewModel
     var body: some View {
-        
-        NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                 .navigationTitle("Profile")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing){
-                        NavigationLink(destination: SettingsView()) {
+                        NavigationLink(value: "Settings") {
                             Image(systemName: "gear")
+                        }
+                        .navigationDestination(for: String.self) { _ in
+                            SettingsView()
                         }
                     }
                 }
@@ -28,7 +29,6 @@ struct ProfileView: View {
                     // It triggers the native iOS spinning wheel until the function completes.
                     viewModel.fetchData()
                 }
-        }
     }
 }
 

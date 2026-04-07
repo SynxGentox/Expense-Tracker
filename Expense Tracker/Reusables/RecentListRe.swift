@@ -79,7 +79,7 @@ struct RecentListRe: View {
                     }
                 }
             }
-            .padding(.horizontal,18)
+            
             .compositingGroup()
             .allowsHitTesting(false)
             if isExpanded && isHistory {
@@ -142,9 +142,9 @@ struct RecentListRe: View {
                                        color: ButtonT.BColor.ColWhite.valueBC)
                     }
                 }
-                .padding(.horizontal, 18)
             }
         }
+        .padding(.horizontal,18)
         .frame(
             maxWidth: .infinity,
             minHeight: isExpanded && isHistory ? CardT.CHeight.xxLargeH.cardCH : CardT.CHeight.smallMidH.cardCH,

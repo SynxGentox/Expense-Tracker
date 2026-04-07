@@ -11,39 +11,39 @@ import SwiftData
 struct DashBoardView: View {
     @Environment(ExpenseVM.self) private var viewModel
     @Environment(\.colorScheme) private var colorScheme
-    @State private var amountInput: Double?
-    @State private var notesInput: String?
-    @State private var dateInput: Date = .now
-    @State private var categoryInput: String = "Unknown"
-    @State private var categoryIcon: String = "questionmark.square"
-    @State private var activityTitle: String = "Unknown"
     
     
     @State private var isPresented: Bool = false
     
     var body: some View {
-        ZStack {
-            ScrollView {
-                ScrollViewReader { _ in
-                    VStack {
-                        GreetingCardFeat()
-                        Divider()
-                        DB_CardFeat(balance: viewModel.remainingBalance)
-                        Divider()
-                        Spacer().frame(height: 10)
-                        TotalSpentFeat(totalSpent: viewModel.totalSpent, totalBudget: viewModel.totalBudget)
-                        Divider()
-                        Spacer().frame(height: 5)
-                        TransNCatRe(displayExpenses: viewModel.displayExpenses, title: "Recent transactions", isHistory: true, showExpandButton: true)
-                    }
+        ScrollView {
+            ScrollViewReader { _ in
+                VStack {
+                    GreetingCardFeat()
+                    Divider()
+                    DB_CardFeat(balance: viewModel.remainingBalance)
+                    Divider()
+                    Spacer().frame(height: 10)
+                    TotalSpentFeat(
+                        totalSpent: viewModel.totalSpent,
+                        totalBudget: viewModel.totalBudget
+                    )
+                    Divider()
+                    Spacer().frame(height: 5)
+                    TransNCatRe(
+                        displayExpenses: viewModel.displayExpenses,
+                        title: "Recent transactions",
+                        isHistory: true,
+                        showExpandButton: true
+                    )
                 }
             }
-            .refreshable {
-                try? await Task.sleep(nanoseconds: 3_000_000_000)
-                // This closure fires exactly when the user pulls the screen down far enough.
-                // It triggers the native iOS spinning wheel until the function completes.
-                viewModel.fetchData()
-            }
+        }
+        .refreshable {
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            // This closure fires exactly when the user pulls the screen down far enough.
+            // It triggers the native iOS spinning wheel until the function completes.
+            viewModel.fetchData()
         }
         .padding(.horizontal, 8)
     }

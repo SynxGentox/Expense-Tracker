@@ -22,7 +22,12 @@ struct TransNCatRe: View {
                     .allowsHitTesting(false)
                 Spacer()
                 if showExpandButton {
-                    NavigationLink("View all", destination: HistoryView())
+                    NavigationLink(value: "View all"){
+                        Text("View all")
+                    }
+                        .navigationDestination(for: String.self){_ in 
+                            HistoryView()
+                        }
                 }
             }
                     
@@ -38,7 +43,7 @@ struct TransNCatRe: View {
         .overlay(alignment: .center) {
             if displayExpenses.isEmpty && isHistory {
                 VStack {
-                    NavigationLink(destination: AddExpenseView()) {
+                    NavigationLink(value: "Add expense") {
                         Image(systemName: "plus")
                             .buttonIconStyleExt(
                                 buttonHeight: ButtonT.BHeight.smallH.valusBH,
@@ -46,6 +51,9 @@ struct TransNCatRe: View {
                                 iconColor: ButtonT.BColor.ColGreen.valueBC,
                                 alignLeft: false
                             )
+                    }
+                    .navigationDestination(for: String.self) { _ in
+                        AddExpenseView()
                     }
                     .opacity(0.5)
                 }

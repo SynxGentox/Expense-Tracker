@@ -11,8 +11,6 @@ import SwiftData
 struct NotificationView: View {
     @Environment(ExpenseVM.self) private var viewModel
     var body: some View {
-        
-        NavigationStack {
             Image(systemName: "bell.badge.slash")
                 .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.circleH.valusBH, buttonWidth: ButtonT.BWidth.circleW.valueBW, iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: false)
             Text("No notifications")
@@ -24,7 +22,6 @@ struct NotificationView: View {
                     // It triggers the native iOS spinning wheel until the function completes.
                     viewModel.fetchData()
                 }
-        }
         
     }
 }

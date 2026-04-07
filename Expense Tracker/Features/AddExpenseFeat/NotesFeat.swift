@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NotesSubFeat: View {
+struct NotesFeat: View {
     @Binding var notesValue: String?
     @FocusState var isEditing: Bool
     
@@ -39,5 +39,5 @@ struct NotesSubFeat: View {
 }
 
 #Preview {
-    NotesSubFeat(notesValue: .constant(""))
+    NotesFeat(notesValue: .constant(""))
 }

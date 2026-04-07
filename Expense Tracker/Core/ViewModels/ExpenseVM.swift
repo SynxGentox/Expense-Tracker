@@ -21,6 +21,8 @@ class ExpenseVM {
     private let data: ExpensesRepository
     var selectedSort: SortOptions = .newestFirst
     var selectedFilter: FilterOptions = .all
+    var sensfeedback = false
+    var expenseDate = Date.now
     
     /// Pulls categories for the database
     var availableCategories: [String] {
@@ -43,9 +45,6 @@ class ExpenseVM {
     func fetchData() {
         do {
             try self.expenses = data.fetchExpenses()
-            print(
-                "4. SaveTapped, amt: \(String(describing: self.expenses.count))"
-            )
         }
         catch {
             self.errorMessage = error.localizedDescription
@@ -68,28 +67,30 @@ class ExpenseVM {
         payMethodIcon: String,
         activityTitle: String
     ) {
-        if amount != 0.0{
+        
             do {
-                try data
-                    .addExpense(
-                        expense: ExpensesData(
-                            amount: amount,
-                            note: note,
-                            date: date,
-                            category: category,
-                            categoryIcon: categoryIcon,
-                            payId: payId,
-                            payMethodIcon: payMethodIcon,
-                            activityTitle: activityTitle
+                if amount == 0.0{
+                    throw ValidationError.zeroAmount
+                }
+                sensfeedback.toggle()
+                    try data
+                        .addExpense(
+                            expense: ExpensesData(
+                                amount: amount,
+                                note: note,
+                                date: date,
+                                category: category,
+                                categoryIcon: categoryIcon,
+                                payId: payId,
+                                payMethodIcon: payMethodIcon,
+                                activityTitle: activityTitle
+                            )
                         )
-                    )
-                print("2. SaveTapped, amt: \(String(describing: amount))")
             } catch {
-                errorMessage = error.localizedDescription
-                print(error)
+                self.errorMessage = error.localizedDescription
+//                debugPrint(error)
             }
             fetchData()
-        }
     }
     
     var displayExpenses: [ExpensesData] {
@@ -130,3 +131,13 @@ class ExpenseVM {
 }
 
 
+    enum ValidationError: Error, LocalizedError {
+        case zeroAmount
+        
+        var errorDescription: String? {
+            switch self {
+            case .zeroAmount:
+                return "Please enter an amount greater than zero."
+            }
+        }
+    }

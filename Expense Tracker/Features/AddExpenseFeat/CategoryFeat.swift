@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-struct CategorySubFeat: View {
+struct CategoryFeat: View {
     @Binding var category: String
     @Binding var categoryIcon: String
     @Binding var activityTitle: String
     
     var body: some View {
         
-        NavigationStack {
             ZStack {
                 CardBackground(
                     cornerRadius: CardT.CRadNPad.radius.valueCR,
@@ -27,8 +26,8 @@ struct CategorySubFeat: View {
                         Text("Category")
                             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                         Spacer()
-                        NavigationLink("View all") {
-                            CategoryView()
+                        NavigationLink(value: AppRoute.categoryView) {
+                            Text("View all")
                         }
                     }
                     .padding(.horizontal, 6)
@@ -72,10 +71,10 @@ struct CategorySubFeat: View {
                    minHeight: CardT.CHeight.mediumH.cardCH,
                    maxHeight: CardT.CHeight.mediumH.cardCH,
                    alignment: .init(horizontal: .leading, vertical: .top))
-        }
+            
     }
 }
 
 #Preview {
-    CategorySubFeat(category: .constant("Food"), categoryIcon: .constant("fork.knife"), activityTitle: .constant("Drinking"))
+    CategoryFeat(category: .constant("Food"), categoryIcon: .constant("fork.knife"), activityTitle: .constant("Drinking"))
 }

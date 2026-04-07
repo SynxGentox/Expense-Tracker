@@ -21,33 +21,46 @@ struct ViewLoader: View {
             if let viewModel {
                 TabView {
                     Tab.init("", systemImage: "rectangle.3.group.fill") {
+                        
                         NavigationStack {
                             DashBoardView()
                                 .toolbar {
-                                    ToolbarItem(placement: .topBarTrailing) {
-                                        NavigationLink{
-                                            NotificationView()
-                                        } label: {
-                                            Image(systemName: "bell")
+                                            ToolbarItem(placement: .topBarTrailing) {
+                                                NavigationLink(value: AppRoute.notification) {
+                                                    Image(systemName: "bell")
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                                
+                                        .navigationDestination(for: AppRoute.self) { route in
+                                            switch route {
+                                            case .notification: NotificationView()
+                                            case .addExpense:   AddExpenseView()
+                                            case .categoryView: CategoryViewFeat(selectedCategory: .constant(""), selectedIcon: .constant(""))
+                                            }
+                                        }
                         }
+                        
                     }
                     Tab.init("",systemImage: "chart.xyaxis.line") {
                         NavigationStack {
                             HistoryView()
                                 .toolbar {
-                                    ToolbarItem(placement: .primaryAction) {
-                                        NavigationLink{
-                                            NavigationStack { AddExpenseView() }
-                                        } label: {
-                                            Image(systemName: "plus")
+                                            ToolbarItem(placement: .primaryAction) {
+                                                NavigationLink(value: AppRoute.addExpense) {
+                                                    Image(systemName: "plus")
+                                                }
+                                                .buttonStyle(.borderedProminent)
+                                            }
                                         }
-                                        .buttonStyle(.borderedProminent)
-                                    }
-                                }
+                                        .navigationDestination(for: AppRoute.self) { route in
+                                            switch route {
+                                            case .notification: NotificationView()
+                                            case .addExpense:   AddExpenseView()
+                                            case .categoryView: CategoryViewFeat(
+                                                selectedCategory: .constant(""), selectedIcon: .constant("")
+                                            )
+                                            }
+                                        }
                                 .toolbar {
                                     ToolbarItem(placement: .topBarTrailing) {
                                         Menu {
@@ -82,13 +95,15 @@ struct ViewLoader: View {
                                         }
                                     }
                                 }
+                                
+                                
                         }
+                        
                     }
-                    Tab.init(
-                        "",
-                        systemImage: "person.and.background.dotted"
-                    ) {
-                        ProfileView()
+                    Tab.init("",systemImage: "person.and.background.dotted") {
+                        NavigationStack{
+                            ProfileView()
+                        }
                     }
                     Tab(role: .search) {
                         NavigationStack {  }

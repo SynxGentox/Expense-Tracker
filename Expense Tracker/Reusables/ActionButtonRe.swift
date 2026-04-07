@@ -37,14 +37,18 @@ struct ActionNavigationButton<Destination: View>: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: destination) {
+            NavigationLink(value: "Action") {
                 PolymorphicButtonContent(
                     isImage: buttonDisplay,
                     infinite: infinite,
                     alignLeft: alignLeft
                 )
             }
+            .navigationDestination(for: String.self) { _ in
+                SettingsView()
+            }
             .buttonStyle(ActionButtonStyle())
+            
         }
     }
 }

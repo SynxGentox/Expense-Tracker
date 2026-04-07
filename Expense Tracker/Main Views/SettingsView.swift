@@ -26,16 +26,18 @@ struct SettingsView: View {
     
     var body: some View {
         
-        NavigationStack {
             Form {
                 ZStack(alignment: .leading) {
-                    ActionButton(
-                        buttonDisplay: "person.and.background.dotted",
-                        infinite: true,
-                        alignLeft: true
-                    ) {
+                    Button {
                         
+                    } label: {
+                        Image(systemName: "person.and.background.dotted")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity, maxHeight: 44, alignment: .leading)
+                            .foregroundStyle(ButtonT.BColor.ColAccent.valueBC)
                     }
+                    
                     
                     Text("Gentox")
                         .amountFontStyleExt(numSize: FontT.titleF.valueF)
@@ -119,7 +121,6 @@ struct SettingsView: View {
                 }
             }
             .toolbarVisibility(.hidden, for: .tabBar)
-        }
     }
 }
 
