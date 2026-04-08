@@ -36,7 +36,9 @@ struct ContentSkeletonFeat: View {
             .foregroundColor(Color(.systemGray5))
             .padding(16)
             SkeletonFlashFeat(isAnimating: true, size: size)
+                .blendMode(.destinationOut)
         }
+        .compositingGroup()
     }
 }
 

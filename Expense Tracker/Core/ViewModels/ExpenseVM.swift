@@ -23,6 +23,8 @@ class ExpenseVM {
     var selectedFilter: FilterOptions = .all
     var sensfeedback = false
     var expenseDate = Date.now
+    var topButton: ChartTopButton = .main
+    var bottomButton: ChartBottomButton = .sevenDays
     
     /// Pulls categories for the database
     var availableCategories: [String] {
@@ -128,16 +130,59 @@ class ExpenseVM {
         totalBudget - totalSpent
     }
     
+    
+    var chartArray: [ExpensesData] {
+        return expenses.filter{ $0.date >= Calendar.current.date(byAdding: topButton.stride, value: -bottomButton.rawValue, to: Date()) ?? .now}
+            .sorted{ $0.date < $1.date }
+    }
+    
 }
 
 
-    enum ValidationError: Error, LocalizedError {
-        case zeroAmount
-        
-        var errorDescription: String? {
-            switch self {
-            case .zeroAmount:
-                return "Please enter an amount greater than zero."
-            }
+enum ValidationError: Error, LocalizedError {
+    case zeroAmount
+    
+    var errorDescription: String? {
+        switch self {
+        case .zeroAmount:
+            return "Please enter an amount greater than zero."
         }
     }
+}
+
+enum ChartTopButton: CaseIterable {
+    case main, monthly, yearly
+    
+    var stride: Calendar.Component {
+        switch self {
+        case .main: return .weekOfYear
+        case .monthly: return .month
+        case .yearly: return .year
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .main: return "Main"
+        case .monthly: return "Monthly"
+        case .yearly: return "Yearly"
+        }
+    }
+}
+
+enum ChartBottomButton: Int, CaseIterable {
+    case today = 1
+    case threeDays = 3
+    case fiveDays = 5
+    case sevenDays = 7
+    
+    var title: String {
+        switch self {
+        case .today: return "today"
+        case .threeDays: return "3 days"
+        case .fiveDays: return "5 days"
+        case .sevenDays: return "7 days"
+            
+        }
+    }
+}

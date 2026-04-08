@@ -9,41 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct HistoryView: View {
-    let array = ["Main", "Monthly", "Yearly"]
-    let arraydays = ["Today", "3 Days", "5 Days", "7 Days"]
+    
     @Environment(ExpenseVM.self) private var viewModel
     
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 0){
-                    HStack {
-                        Text("History")
-                            .amountFontStyleExt(numSize: FontT.amountF.valueF)
-                        Spacer()
-                    }
-                    Spacer().frame(height: 30)
-                    Divider()
-                    HStack {
-                        ForEach(array, id: \.self) { time in
-                            ActionButton(buttonDisplay: time, infinite: true, alignLeft: false) {
-                                
-                            }
-                        }
-                    }
-                    CardBackground(
-                        cornerRadius: CardT.CRadNPad.radius.valueCR,
-                        cardWidth: CardT.CWidth.largeW.valueCW,
-                        cardHeight: CardT.CHeight.xxLargeH.cardCH - 30,
-                        color: CardT.cardColGray.valueCC)
-                    HStack {
-                        ForEach(arraydays, id: \.self) { time in
-                            ActionButton(buttonDisplay: time, infinite: true, alignLeft: false) {
-                                
-                            }
-                        }
-                    }
-                    .padding(.bottom, 10)
+                VStack(spacing: 0) {
+                    ChartFeat()
                     Divider()
                         .padding(.bottom)
                     TransNCatRe(displayExpenses: viewModel.displayExpenses, title: "History", isHistory: true, showExpandButton: false)
@@ -52,7 +25,7 @@ struct HistoryView: View {
         }
         .padding(.horizontal, 8)
         .refreshable {
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            try? await Task.sleep(nanoseconds: 1_800_000_000)
             // This closure fires exactly when the user pulls the screen down far enough.
             // It triggers the native iOS spinning wheel until the function completes.
             viewModel.fetchData()

@@ -1,0 +1,18 @@
+//
+//  ChartModel.swift
+//  Expense Tracker
+//
+//  Created by Aryan Verma on 08/04/26.
+//
+
+import Foundation
+
+struct ChartModel {
+    let expenses: [ExpensesData]!
+    
+    var chartArray: [ExpensesData] {
+        var result = expenses
+        result = result?.filter{ $0.date >= Calendar.current.date(byAdding: .month, value: -1, to: Date())!}
+        return result!
+    }
+}

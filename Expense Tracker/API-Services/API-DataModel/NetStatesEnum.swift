@@ -7,16 +7,10 @@
 
 import SwiftUI
 
+/// Holds the network states and return the view for the state
 enum NetStatesEnum {
-    case isLoading
-    case isError
-    case isSuccess
-    
-    var state: any View {
-        switch self {
-        case .isError:      return  Text("SomethingWentWrong")
-        case .isLoading:    return  SkeletonLoadingView()
-        case .isSuccess:    return  Text("Success")
-        }
-    }
+    case loading
+    case success(rates: CurrencyDataModel) // Pass the data here
+    case error(Error, () -> Void)                  // Pass the error here
+    case empty
 }

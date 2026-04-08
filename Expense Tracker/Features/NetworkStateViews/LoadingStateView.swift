@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SkeletonLoadingView: View {
+struct LoadingStateView: View {
     var body: some View {
         let sizes: [CGFloat] = [250, 150, 100]
 
@@ -27,5 +27,5 @@ struct SkeletonLoadingView: View {
 }
 
 #Preview {
-    SkeletonLoadingView()
+    LoadingStateView()
 }

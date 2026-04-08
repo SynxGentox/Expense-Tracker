@@ -11,10 +11,7 @@ import Observation
 @Observable
 @MainActor
 class CurrencyResponseVM {
-    var currency: CurrencyDataModel? = nil
-    var errorMsg: String?
-    var isLoading: Bool = true
-    var networkState = NetStatesEnum.isLoading
+    var networkState: NetStatesEnum = .loading
     private let apiProtocol: CurrencyProtocolRepo
     
     init(apiProtocol: CurrencyProtocolRepo) {
@@ -23,16 +20,17 @@ class CurrencyResponseVM {
     }
     
     func fetchRates() {
-        isLoading = true
         Task {
             do {
-                currency = try await apiProtocol.fetchRates()
-                networkState = .isSuccess
+                let result = try await apiProtocol.fetchRates()
+                if result.conversionRate.isEmpty {
+                    networkState = .empty
+                } else  {
+                    networkState = .success(rates: result)
+                }
             } catch {
-                errorMsg = error.localizedDescription
-                networkState = .isError
+                networkState = .error(error) { self.fetchRates() }
             }
-            isLoading = false
         }
     }
         // Other code...

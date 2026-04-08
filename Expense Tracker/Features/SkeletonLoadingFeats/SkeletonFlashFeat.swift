@@ -13,15 +13,14 @@ struct SkeletonFlashFeat: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: value, style: .continuous)
-            .fill(.gray)
-            .frame(maxWidth:
-                   value , maxHeight: size * 1.2)
+            .fill(ButtonT.BColor.ColPrimary.valueBC)
+            .frame(maxWidth: value , maxHeight: size * 1.2)
             .rotationEffect(Angle(degrees: angle))
-            .blur(radius: value * 2)
+            .blur(radius: value * 1)
             .offset(x: isAnimating ? -(size + size) : size + size)
             .onAppear {
                 withAnimation(.linear(duration: xSeconds).repeatForever(autoreverses: false)) {
-                    isAnimating = false
+                    isAnimating = true
                 }
             }
             .ignoresSafeArea()
@@ -33,7 +32,7 @@ struct SkeletonFlashFeat: View {
         0.7
     }
     var value: CGFloat {
-        angle/2 * .pi
+        angle/2 / xSeconds
     }
 }
 

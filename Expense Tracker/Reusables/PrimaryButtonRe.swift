@@ -11,6 +11,7 @@ struct PrimaryButton: View {
     let buttonDisplay: String
     let infinite: Bool
     let alignLeft: Bool
+    var isSelected: Bool = false
     let action: () -> Void
     
     
@@ -23,7 +24,7 @@ struct PrimaryButton: View {
                     alignLeft: alignLeft
                 )
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(PrimaryButtonStyle(isSelected: isSelected))
         }
     }
 }
@@ -32,6 +33,7 @@ struct PrimaryNavigationButton<Destination: View>: View {
     let buttonDisplay: String
     let infinite: Bool
     let alignLeft: Bool
+    var isSelected: Bool = false
     let destination: Destination
     
     var body: some View {
@@ -46,7 +48,7 @@ struct PrimaryNavigationButton<Destination: View>: View {
             .navigationDestination(for: String.self) { _ in
                 destination
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(PrimaryButtonStyle(isSelected: isSelected))
             
         }
     }

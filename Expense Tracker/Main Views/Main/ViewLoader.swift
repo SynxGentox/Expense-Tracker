@@ -111,7 +111,7 @@ struct ViewLoader: View {
                 }
                 .environment(viewModel)
             } else {
-                SkeletonLoadingView()
+                LoadingStateView()
                     .onAppear {
                         let repo = SwiftDataExpenseRepository(data: context)
                         viewModel = ExpenseVM(data: repo)
