@@ -32,7 +32,7 @@ struct PolymorphicButtonContent: View {
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                     buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
-                    iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: alignLeft
+                    iconColor: ButtonT.BColor.ColSysBack.valueBC, alignLeft: alignLeft
                 )
         }
         else if UIImage(named: str) != nil {
@@ -40,13 +40,13 @@ struct PolymorphicButtonContent: View {
                 .buttonIconStyleExt(
                     buttonHeight: ButtonT.BHeight.circleH.valusBH,
                     buttonWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
-                    iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: alignLeft
+                    iconColor: ButtonT.BColor.ColSysBack.valueBC, alignLeft: alignLeft
                 )
         }
         else {
             Text(str)
                 .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
-                .foregroundStyle(Color.primary.opacity(0.8))
+                .foregroundStyle(ButtonT.BColor.ColSysBack.valueBC)
                 .padding(ButtonT.buttonIcPad.valueBP)
                 .frame(
                     maxWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
