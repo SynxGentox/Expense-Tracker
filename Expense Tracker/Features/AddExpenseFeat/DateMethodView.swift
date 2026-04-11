@@ -8,8 +8,8 @@
 import SwiftUI
 import SwiftData
 
-struct DateMethodFeat: View {
-    @Bindable var viewModel: ExpenseVM
+struct DateMethodView: View {
+    @Bindable var viewModel: ExpenseViewModel
     @Binding var payId: String
     @Binding var payMethodIcon: String
     
@@ -86,13 +86,13 @@ struct DateMethodFeat: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
-        for: ExpensesData.self,
+        for: ExpensesModel.self,
         configurations: config
     )
     
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
-    let previewVM = ExpenseVM(data: repo)
-    DateMethodFeat(
+    let previewVM = ExpenseViewModel(data: repo)
+    DateMethodView(
             viewModel: previewVM,
             payId: .constant("Cash"),
             payMethodIcon: .constant("rectangle.stack.fill")

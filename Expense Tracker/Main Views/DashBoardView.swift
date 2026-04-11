@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct DashBoardView: View {
-    @Environment(ExpenseVM.self) private var viewModel
+    @Environment(ExpenseViewModel.self) private var viewModel
     @Environment(\.colorScheme) private var colorScheme
     
     
@@ -19,19 +19,24 @@ struct DashBoardView: View {
         ScrollView {
             ScrollViewReader { _ in
                 VStack {
-                    GreetingCardFeat()
+                    GreetingCardView(displayName: viewModel.displayName)
                     Divider()
-                    DB_CardFeat(balance: viewModel.remainingBalance)
+                    DB_CardView(
+                        balance: viewModel.remainingBalance,
+                        cardName: viewModel.cardName,
+                        cardType: viewModel.cardType,
+                        cardNumber: viewModel.cardNumber,
+                        cardTypeLogo: viewModel.cardTypeLogo)
                     Divider()
                     Spacer().frame(height: 10)
-                    TotalSpentFeat(
+                    TotalSpentView(
                         totalSpent: viewModel.totalSpent,
                         totalBudget: viewModel.totalBudget
                     )
                     Divider()
                     Spacer().frame(height: 5)
-                    TransNCatRe(
-                        displayExpenses: viewModel.displayExpenses,
+                    TransNCatView(
+                        displayExpenses: Array(viewModel.displayExpenses.prefix(7)),
                         title: "Recent transactions",
                         isHistory: true,
                         showExpandButton: true
@@ -53,7 +58,7 @@ struct DashBoardView: View {
     // create an inMemory database for the preview
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
-        for: ExpensesData.self,
+        for: ExpensesModel.self,
         configurations: config
     )
     
@@ -62,5 +67,5 @@ struct DashBoardView: View {
     
     //Inject it
     DashBoardView()
-        .environment(ExpenseVM(data: repo))
+        .environment(ExpenseViewModel(data: repo))
 }

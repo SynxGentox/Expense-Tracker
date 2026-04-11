@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ExpensesData: Identifiable {
+class ExpensesModel: Identifiable {
     var id: UUID = UUID()
     var amount: Double
     var note: String

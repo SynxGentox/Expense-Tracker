@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SuccessStateView: View {
     @State private var currencyInput: Double?
-    @Binding var result: [String : Double]
+    @State var result: [String : Double]
     @State var inputCurr: String = Locale.current.currency?.identifier ?? "USD"
     @State var outputCurr: String = Locale.current.currency?.identifier ?? "USD"
     @FocusState private var currencyFocus: Bool
@@ -28,7 +28,7 @@ struct SuccessStateView: View {
                             cardWidth: rectCardSize,
                             cardHeight: sqCardSize,
                             color: ButtonT.BColor.ColBlack.valueBC)
-                        .shadow(color: .primary.opacity(0.3), radius: 10)
+                        .shadow(color: .primary.opacity(0.1), radius: 10)
                         TextField("Currency Value",
                                   value: Binding(
                                     get: {currencyInput ?? 0.0},
@@ -46,7 +46,7 @@ struct SuccessStateView: View {
                             cardWidth: sqCardSize,
                             cardHeight: sqCardSize,
                             color: ButtonT.BColor.ColBlack.valueBC)
-                        .shadow(color: .primary.opacity(0.3), radius: 10)
+                        .shadow(color: .primary.opacity(0.1), radius: 10)
                         Menu {
                             ForEach(
                                 result.sorted(by: {$0.value < $1.value}),
@@ -142,8 +142,6 @@ struct SuccessStateView: View {
 }
 
 #Preview {
-    SuccessStateView(
-        result: .constant(["USD":96, "hellssdo":2, "hellssdfsdo":4])
-    )
+    SuccessStateView(result: ["USD":96, "hellssdo":2, "hellssdfsdo":4])
 }
 

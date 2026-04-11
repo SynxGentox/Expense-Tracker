@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct NotificationView: View {
-    @Environment(ExpenseVM.self) private var viewModel
+    @Environment(ExpenseViewModel.self) private var viewModel
     var body: some View {
             Image(systemName: "bell.badge.slash")
                 .buttonIconStyleExt(buttonHeight: ButtonT.BHeight.circleH.valusBH, buttonWidth: ButtonT.BWidth.circleW.valueBW, iconColor: ButtonT.BColor.ColPrimary.valueBC, alignLeft: false)
@@ -29,7 +29,7 @@ struct NotificationView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
-        for: ExpensesData.self,
+        for: ExpensesModel.self,
         configurations: config
     )
     
@@ -37,5 +37,5 @@ struct NotificationView: View {
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
     
     NotificationView()
-        .environment(ExpenseVM(data: repo))
+        .environment(ExpenseViewModel(data: repo))
 }

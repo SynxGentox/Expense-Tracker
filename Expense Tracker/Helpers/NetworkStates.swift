@@ -8,9 +8,9 @@
 import SwiftUI
 
 /// Holds the network states and return the view for the state
-enum NetStatesEnum {
+enum NetworkStates {
     case loading
-    case success(rates: CurrencyDataModel) // Pass the data here
+    case success(rates: CurrencyModel) // Pass the data here
     case error(Error, () -> Void)                  // Pass the error here
-    case empty
+    case empty(() -> Void)
 }

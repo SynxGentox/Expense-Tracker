@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CurrencyProtocolRepo {
-    func fetchRates() async throws -> CurrencyDataModel
+protocol CurrencyRepository {
+    func fetchRates() async throws -> CurrencyModel
 }

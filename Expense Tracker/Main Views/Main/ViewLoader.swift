@@ -10,7 +10,7 @@ import SwiftData
 
 struct ViewLoader: View {
     @Environment(\.modelContext) private var context
-    @State private var viewModel: ExpenseVM?
+    @State private var viewModel: ExpenseViewModel?
     
     
     var body: some View {
@@ -21,7 +21,6 @@ struct ViewLoader: View {
             if let viewModel {
                 TabView {
                     Tab.init("", systemImage: "rectangle.3.group.fill") {
-                        
                         NavigationStack {
                             DashBoardView()
                                 .toolbar {
@@ -35,11 +34,11 @@ struct ViewLoader: View {
                                             switch route {
                                             case .notification: NotificationView()
                                             case .addExpense:   AddExpenseView()
-                                            case .categoryView: CategoryViewFeat(selectedCategory: .constant(""), selectedIcon: .constant(""))
+                                            case .historyView:
+                                                HistoryView()
                                             }
                                         }
                         }
-                        
                     }
                     Tab.init("",systemImage: "chart.xyaxis.line") {
                         NavigationStack {
@@ -56,9 +55,8 @@ struct ViewLoader: View {
                                             switch route {
                                             case .notification: NotificationView()
                                             case .addExpense:   AddExpenseView()
-                                            case .categoryView: CategoryViewFeat(
-                                                selectedCategory: .constant(""), selectedIcon: .constant("")
-                                            )
+                                            case .historyView:
+                                                HistoryView()
                                             }
                                         }
                                 .toolbar {
@@ -98,7 +96,6 @@ struct ViewLoader: View {
                                 
                                 
                         }
-                        
                     }
                     Tab.init("",systemImage: "person.and.background.dotted") {
                         NavigationStack{
@@ -114,7 +111,7 @@ struct ViewLoader: View {
                 LoadingStateView()
                     .onAppear {
                         let repo = SwiftDataExpenseRepository(data: context)
-                        viewModel = ExpenseVM(data: repo)
+                        viewModel = ExpenseViewModel(data: repo)
                     }
             }
         }
@@ -124,5 +121,5 @@ struct ViewLoader: View {
 
 #Preview {
     ViewLoader()
-        .modelContainer(for: ExpensesData.self, inMemory: true)
+        .modelContainer(for: ExpensesModel.self, inMemory: true)
 }

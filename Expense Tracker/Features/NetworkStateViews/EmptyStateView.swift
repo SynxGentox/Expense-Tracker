@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct EmptyStateView: View {
-    let size = CardT.CHeight.smallH.cardCH
+    let reload: () -> Void
+    
     var body: some View {
-        Image(systemName: "questionmark.folder")
-            .resizable()
-            .scaledToFit()
-            .frame(width: size, height: size)
-        Text("Unable to load data!")
-            .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+        let size = CardT.CHeight.smallH.cardCH
+        
+        VStack {
+            Image(systemName: "questionmark.folder")
+                .resizable()
+                .scaledToFit()
+                .frame(width: size, height: size)
+            Text("Unable to load data!")
+                .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
+        }
+        .padding(24)
+        PrimaryButton(
+            buttonDisplay: "arrow.trianglehead.counterclockwise",
+            infinite: false,
+            alignLeft: false,
+            action: reload
+        )
     }
 }
 
 #Preview {
-    EmptyStateView()
+    EmptyStateView() {
+        print("Reload button tapped in Preview")
+    }
 }

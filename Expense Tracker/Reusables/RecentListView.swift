@@ -8,10 +8,10 @@
 import SwiftUI
 import SwiftData
 
-struct RecentListRe: View {
+struct RecentListView: View {
     @Environment(\.colorScheme) var colScheme
     @State var isExpanded: Bool = false
-    let expense: ExpensesData
+    let expense: ExpensesModel
     let isHistory: Bool
     
     var body: some View {
@@ -19,7 +19,7 @@ struct RecentListRe: View {
             HStack {
                 ZStack {
                     CardBackground(
-                        cornerRadius: CardT.CRadNPad.radius.valueCR/2,
+                        cornerRadius: CardT.CRadNPad.radius.valueCR - 16,
                         cardWidth: CardT.CWidth.smallW.valueCW,
                         cardHeight: CardT.CHeight.smallH.cardCH,
                         color:  ButtonT.BColor.ColSysBack.valueBC
@@ -49,14 +49,18 @@ struct RecentListRe: View {
                                 
                         /// - Category: Expense Category
                         if isHistory {
-                            HStack {
+                            VStack(alignment: .listRowSeparatorLeading) {
                                 Text(isHistory ? expense.category : "")
-                                Circle()
-                                    .fill(ButtonT.BColor.ColAccent.valueBC)
-                                    .frame(width: 3, height: 3)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+//                                    .frame(maxWidth: 70)
+                                    
+//                                Circle()
+//                                    .fill(ButtonT.BColor.ColAccent.valueBC)
+//                                    .frame(width: 3, height: 3)
                                 Text(
                                     expense.date,
-                                    format: .dateTime.day().month()
+                                    format: .dateTime.day().month(.abbreviated).year(.twoDigits)
                                 )
                             }
                             .secondaryFontStyleExt(
@@ -136,15 +140,29 @@ struct RecentListRe: View {
                     Spacer().frame(height: 0)
                         .padding(.bottom)
                     HStack(alignment: .bottom) {
-                        CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR/2,
-                                       cardWidth: CardT.CWidth.largeW.valueCW,
-                                       cardHeight: CardT.CHeight.smallH.cardCH,
-                                       color: ButtonT.BColor.ColWhite.valueBC)
+                        if !expense.note.isEmpty {
+                            ZStack{
+                                CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR - 16,
+                                               cardWidth: CardT.CWidth.largeW.valueCW,
+                                               cardHeight: CardT.CHeight.smallH.cardCH,
+                                               color: ButtonT.BColor.ColSysBack.valueBC)
+                                Text(expense.note)
+                                    .multilineTextAlignment(.center)
+                                    .padding(8)
+                                    .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                    .foregroundStyle(Color.primary)
+                            }
+                        } else {
+                            Text("No note available! ;)")
+                                .multilineTextAlignment(.center)
+                                .padding(8)
+                                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                        }
                     }
                 }
             }
         }
-        .padding(.horizontal,18)
+        .padding(.horizontal, 18)
         .frame(
             maxWidth: .infinity,
             minHeight: isExpanded && isHistory ? CardT.CHeight.xxLargeH.cardCH : CardT.CHeight.smallMidH.cardCH,
@@ -163,7 +181,7 @@ struct RecentListRe: View {
 }
 
 #Preview {
-    let dummyData = ExpensesData(
+    let dummyData = ExpensesModel(
         amount: 45.99,
         note: "Burger King",
         date: .now,
@@ -173,5 +191,5 @@ struct RecentListRe: View {
         payMethodIcon: "dog",
         activityTitle: "blah"
     )
-    RecentListRe(expense: dummyData, isHistory: true)
+    RecentListView(expense: dummyData, isHistory: true)
 }

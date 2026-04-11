@@ -7,8 +7,12 @@
 
 import SwiftUI
 
-struct DB_CardFeat: View {
+struct DB_CardView: View {
     let balance: Double
+    let cardName: String
+    let cardType: String
+    let cardNumber: String
+    let cardTypeLogo: String
     var body: some View {
         ZStack {
             CardBackground(
@@ -34,11 +38,11 @@ struct DB_CardFeat: View {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack(alignment: .listRowSeparatorLeading) {
-                        Text("Fedral Express")
+                        Text(cardName)
                             .primaryFontStyleExt(
                                 fontSize: FontT.primaryF.valueF
                             )
-                        Text("Debit Card")
+                        Text(cardType)
                             .secondaryFontStyleExt(
                                 fontSize: FontT.secondaryF.valueF
                             )
@@ -50,7 +54,7 @@ struct DB_CardFeat: View {
                     
                     Spacer()
                     
-                    Image(systemName: "app.background.dotted")
+                    Image(systemName: cardTypeLogo)
                         .buttonIconStyleExt(
                             buttonHeight: ButtonT.BHeight.circleH.valusBH - 10,
                             buttonWidth: ButtonT.BWidth.circleW.valueBW - 10,
@@ -60,14 +64,14 @@ struct DB_CardFeat: View {
                 }
                 Spacer()
                     .compositingGroup()
-                DB_BalanceFeat(balance: balance)
+                DB_BalanceView(balance: balance)
                     .foregroundStyle(
                         ButtonT.BColor.ColGrayStatic.valueBC.gradient.quaternary
                     )
             }
             .overlay(alignment: .leading) {
                 HStack {
-                    Text("**** **** **** 3973")
+                    Text(cardNumber)
                         .amountFontStyleExt(numSize: FontT.titleF.valueF)
                         .foregroundStyle(
                             ButtonT.BColor.ColBlack.valueBC.gradient.quaternary
@@ -86,5 +90,5 @@ struct DB_CardFeat: View {
 }
 
 #Preview {
-    DB_CardFeat(balance: 7)
+    DB_CardView(balance: 7, cardName: "Federal Express", cardType: "Debit Card", cardNumber: "**** **** **** 1234", cardTypeLogo: "app.background.dotted")
 }

@@ -15,15 +15,15 @@ class SwiftDataExpenseRepository: ExpensesRepository {
         self.data = data
     }
     
-    func addExpense(expense: ExpensesData) throws {
+    func addExpense(expense: ExpensesModel) throws {
         data.insert(expense)
         try data.save()
         
         
     }
     
-    func fetchExpenses() throws -> [ExpensesData] {
-        try data.fetch(FetchDescriptor<ExpensesData>())
+    func fetchExpenses() throws -> [ExpensesModel] {
+        try data.fetch(FetchDescriptor<ExpensesModel>())
         
     }
 }

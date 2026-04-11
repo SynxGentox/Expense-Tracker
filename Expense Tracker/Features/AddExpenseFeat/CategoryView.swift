@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryFeat: View {
+struct CategoryView: View {
     @Binding var category: String
     @Binding var categoryIcon: String
     @Binding var activityTitle: String
@@ -26,7 +26,12 @@ struct CategoryFeat: View {
                         Text("Category")
                             .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                         Spacer()
-                        NavigationLink(value: AppRoute.categoryView) {
+                        NavigationLink {
+                            CategoryListView(
+                                selectedCategory: $category,
+                                selectedIcon: $categoryIcon
+                            )
+                        } label: {
                             Text("View all")
                         }
                     }
@@ -35,7 +40,7 @@ struct CategoryFeat: View {
                     HStack {
                         ZStack {
                             CardBackground(
-                                cornerRadius: CardT.CRadNPad.radius.valueCR/2,
+                                cornerRadius: CardT.CRadNPad.radius.valueCR - 16,
                                 cardWidth: CardT.CWidth.smallW.valueCW,
                                 cardHeight: CardT.CHeight.smallH.cardCH,
                                 color:  ButtonT.BColor.ColSysBack.valueBC
@@ -60,8 +65,6 @@ struct CategoryFeat: View {
                                 .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
                         }
                         Spacer()
-                        //                        Text("^")
-                        //                            .rotationEffect(Angle(degrees: 90))
                     }
                     
                 }
@@ -76,5 +79,5 @@ struct CategoryFeat: View {
 }
 
 #Preview {
-    CategoryFeat(category: .constant("Food"), categoryIcon: .constant("fork.knife"), activityTitle: .constant("Drinking"))
+    CategoryView(category: .constant("Food"), categoryIcon: .constant("fork.knife"), activityTitle: .constant("Drinking"))
 }

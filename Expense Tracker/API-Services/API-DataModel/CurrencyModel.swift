@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrencyDataModel: Codable {
+struct CurrencyModel: Codable {
     let result: String
     let documentation: String
     let termsOfUse: String

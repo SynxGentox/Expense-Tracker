@@ -18,7 +18,7 @@ import SwiftUI
 //}
 
 
-struct PolymorphicButtonContent: View {
+struct PolymorphicButtonStyle: View {
     let isImage: String
     let infinite: Bool
     let alignLeft: Bool
@@ -45,7 +45,7 @@ struct PolymorphicButtonContent: View {
         }
         else {
             Text(str)
-                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                .amountFontStyleExt(numSize: FontT.primaryF.valueF)
                 .foregroundStyle(ButtonT.BColor.ColSysBack.valueBC)
                 .padding(ButtonT.buttonIcPad.valueBP)
                 .frame(

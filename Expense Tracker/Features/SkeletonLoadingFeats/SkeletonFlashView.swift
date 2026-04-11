@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SkeletonFlashFeat: View {
+struct SkeletonFlashView: View {
     @State var isAnimating: Bool
     var size: CGFloat
     
@@ -15,18 +15,19 @@ struct SkeletonFlashFeat: View {
         RoundedRectangle(cornerRadius: value, style: .continuous)
             .fill(ButtonT.BColor.ColPrimary.valueBC)
             .frame(maxWidth: value , maxHeight: size * 1.2)
-            .rotationEffect(Angle(degrees: angle))
-            .blur(radius: value * 1)
+//            .rotationEffect(Angle(degrees: angle))
+            .blur(radius: value * 2)
+            .shadow(color: .gray, radius: 20)
             .offset(x: isAnimating ? -(size + size) : size + size)
             .onAppear {
                 withAnimation(.linear(duration: xSeconds).repeatForever(autoreverses: false)) {
-                    isAnimating = true
+                    isAnimating.toggle()
                 }
             }
             .ignoresSafeArea()
     }
     var angle: CGFloat {
-        .pi * .pi
+        3.14 * 3.14
     }
     var xSeconds: Double {
         0.7
@@ -37,5 +38,5 @@ struct SkeletonFlashFeat: View {
 }
 
 #Preview {
-    SkeletonFlashFeat(isAnimating: true, size: 210)
+    SkeletonFlashView(isAnimating: true, size: 210)
 }

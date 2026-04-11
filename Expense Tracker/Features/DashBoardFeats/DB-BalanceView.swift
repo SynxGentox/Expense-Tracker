@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DB_BalanceFeat: View {
+struct DB_BalanceView: View {
     let balance: Double
     var body: some View {
         HStack {
@@ -30,5 +30,5 @@ struct DB_BalanceFeat: View {
 }
 
 #Preview {
-    DB_BalanceFeat(balance: 7.0)
+    DB_BalanceView(balance: 7.0)
 }

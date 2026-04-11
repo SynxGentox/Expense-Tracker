@@ -10,10 +10,9 @@ import SwiftData
 
 struct AddExpenseView: View {
     @FocusState var isEditing: Bool
-    @Environment(ExpenseVM.self) private var viewModel
+    @Environment(ExpenseViewModel.self) private var viewModel
     @State private var amountInput: Double?
     @State private var notesInput: String?
-    @State private var dateInput: Date = .now
     @State private var categoryInput: String = "Unknown"
     @State private var categoryIcon: String = "questionmark.square"
     @State private var payId: String = "Cash"
@@ -36,23 +35,23 @@ struct AddExpenseView: View {
                     .keyboardType(.numberPad)
                     .focused($isEditing)
             Spacer().frame(height: 20)
-                CategoryFeat(
+                CategoryView(
                     category: $categoryInput,
                     categoryIcon: $categoryIcon,
                     activityTitle: $activityTitle
                 )
-                Spacer().frame(height: 0)
+                Spacer().frame(height: 8)
                     
-                DateMethodFeat(
+                DateMethodView(
                     viewModel: viewModel,
                     payId: $payId,
                     payMethodIcon: $payMethodIcon
                 )
-                Spacer().frame(height: 0)
+                Spacer().frame(height: 8)
                     
-                NotesFeat(notesValue: $notesInput)
+                NotesView(notesValue: $notesInput)
                     .focused($isEditing)
-                Spacer().frame(height: 0)
+                Spacer().frame(height: 8)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -70,10 +69,9 @@ struct AddExpenseView: View {
                 }
                 else {
                     Button {
-                        
                         viewModel.saveData(
                             amount: amountInput ?? 0.0,
-                            date: dateInput,
+                            date: viewModel.expenseDate,
                             category: categoryInput,
                             note: notesInput ?? "",
                             categoryIcon: categoryIcon,
@@ -100,13 +98,13 @@ struct AddExpenseView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
-        for: ExpensesData.self,
+        for: ExpensesModel.self,
         configurations: config
     )
     
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
     NavigationStack {
         AddExpenseView()
-            .environment(ExpenseVM(data: repo))
+            .environment(ExpenseViewModel(data: repo))
     }
 }

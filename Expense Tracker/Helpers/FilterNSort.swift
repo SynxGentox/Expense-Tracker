@@ -17,5 +17,5 @@ enum SortOptions: CaseIterable {
 enum FilterOptions: Hashable {
     case all
     case specific(String)
-    case withNotes           // filter by card, filter by user activity, filter by category, filter by customDate and customAmount will be added later
+    case withNotes           
 }

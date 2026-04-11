@@ -14,6 +14,6 @@ struct Expense_TrackerApp: App {
         WindowGroup {
             ViewLoader()
         }
-        .modelContainer(for: ExpensesData.self)
+        .modelContainer(for: ExpensesModel.self)
     }
 }

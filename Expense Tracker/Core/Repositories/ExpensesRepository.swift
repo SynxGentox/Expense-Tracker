@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 protocol ExpensesRepository {
-    func addExpense(expense: ExpensesData) throws
-    func fetchExpenses() throws -> [ExpensesData]
+    func addExpense(expense: ExpensesModel) throws
+    func fetchExpenses() throws -> [ExpensesModel]
 }
 
 

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TotalSpentFeat: View {
+struct TotalSpentView: View {
     let totalSpent: Double
     let totalBudget: Double
     var body: some View {
@@ -24,7 +24,7 @@ struct TotalSpentFeat: View {
                         .foregroundStyle(Color(.secondaryLabel))
                     
                     //will be sent by profileView
-                    Text(totalBudget, format: .currency(code: ""))
+                    Text(totalBudget, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .amountFontStyleExt(numSize: FontT.primaryF.valueF)
                         .foregroundStyle(Color(.secondaryLabel).opacity(0.7))
                 }
@@ -39,5 +39,5 @@ struct TotalSpentFeat: View {
 }
 
 #Preview {
-    TotalSpentFeat(totalSpent: 3.0, totalBudget: 200)
+    TotalSpentView(totalSpent: 3.0, totalBudget: 2000)
 }

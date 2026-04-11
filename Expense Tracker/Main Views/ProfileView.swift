@@ -9,9 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ProfileView: View {
-    @Environment(ExpenseVM.self) private var viewModel
+    @Environment(ExpenseViewModel.self) private var viewModel
     var body: some View {
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                    Text("Hello World!")
                 .navigationTitle("Profile")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing){
@@ -35,12 +35,12 @@ struct ProfileView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
-        for: ExpensesData.self,
+        for: ExpensesModel.self,
         configurations: config
     )
     
     //create the repo using the fake database
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
     ProfileView()
-        .environment(ExpenseVM(data: repo))
+        .environment(ExpenseViewModel(data: repo))
 }

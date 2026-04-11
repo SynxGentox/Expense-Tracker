@@ -10,11 +10,11 @@ import Observation
 
 @Observable
 @MainActor
-class CurrencyResponseVM {
-    var networkState: NetStatesEnum = .loading
-    private let apiProtocol: CurrencyProtocolRepo
+class CurrencyViewModel {
+    var networkState: NetworkStates = .loading
+    private let apiProtocol: CurrencyRepository
     
-    init(apiProtocol: CurrencyProtocolRepo) {
+    init(apiProtocol: CurrencyRepository) {
         self.apiProtocol = apiProtocol
         fetchRates()
     }
@@ -24,7 +24,7 @@ class CurrencyResponseVM {
             do {
                 let result = try await apiProtocol.fetchRates()
                 if result.conversionRate.isEmpty {
-                    networkState = .empty
+                    networkState = .empty{ self.fetchRates() }
                 } else  {
                     networkState = .success(rates: result)
                 }

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TransNCatRe: View {
-    let displayExpenses: [ExpensesData]
+struct TransNCatView: View {
+    let displayExpenses: [ExpensesModel]
     let title: String
     let isHistory: Bool
     let showExpandButton: Bool
@@ -22,7 +22,7 @@ struct TransNCatRe: View {
                     .allowsHitTesting(false)
                 Spacer()
                 if showExpandButton {
-                    NavigationLink(value: "View all"){
+                    NavigationLink(value: AppRoute.historyView){
                         Text("View all")
                     }
                         .navigationDestination(for: String.self){_ in 
@@ -30,20 +30,21 @@ struct TransNCatRe: View {
                         }
                 }
             }
-                    
+            .padding(.horizontal, 8)
             .padding(.bottom)
                     
             if !displayExpenses.isEmpty {
                 ForEach(displayExpenses) { singleExpense in
-                    RecentListRe(expense: singleExpense, isHistory: isHistory)
+                    RecentListView(expense: singleExpense, isHistory: isHistory)
                 }
+                
             }
             Spacer()
         }
         .overlay(alignment: .center) {
             if displayExpenses.isEmpty && isHistory {
                 VStack {
-                    NavigationLink(value: "Add expense") {
+                    NavigationLink(value: AppRoute.addExpense) {
                         Image(systemName: "plus")
                             .buttonIconStyleExt(
                                 buttonHeight: ButtonT.BHeight.smallH.valusBH,
@@ -55,7 +56,7 @@ struct TransNCatRe: View {
                     .navigationDestination(for: String.self) { _ in
                         AddExpenseView()
                     }
-                    .opacity(0.5)
+                    .opacity(0.8)
                 }
             }
         }
@@ -64,7 +65,7 @@ struct TransNCatRe: View {
 }
 
 #Preview {
-    let dummyData = Array(arrayLiteral: ExpensesData(
+    let dummyData = Array(arrayLiteral: ExpensesModel(
         amount: 45.99,
         note: "Burger King",
         date: .now,
@@ -75,7 +76,7 @@ struct TransNCatRe: View {
         activityTitle: "blah"
         // (Add activityTitle here if you added it to your SwiftData model)
     ))
-    TransNCatRe(
+    TransNCatView(
         displayExpenses: dummyData,
         title: "Recent",
         isHistory: true,

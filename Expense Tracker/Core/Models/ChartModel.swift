@@ -8,11 +8,11 @@
 import Foundation
 
 struct ChartModel {
-    let expenses: [ExpensesData]!
+    let expenses: [ExpensesModel]
     
-    var chartArray: [ExpensesData] {
+    var chartArray: [ExpensesModel] {
         var result = expenses
-        result = result?.filter{ $0.date >= Calendar.current.date(byAdding: .month, value: -1, to: Date())!}
-        return result!
+        result = result.filter{ $0.date >= Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? .now}
+        return result
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ActionButton.swift
+//  AddExpenseView.swift
 //  Expense Tracker
 //
 //  Created by Aryan Verma on 30/03/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActionButton: View {
+struct PrimaryButton: View {
     let buttonDisplay: String
     let infinite: Bool
     let alignLeft: Bool
@@ -18,48 +18,44 @@ struct ActionButton: View {
     var body: some View {
         VStack {
             Button(action: action) {
-                PolymorphicButtonContent(
+                PolymorphicButtonStyle(
                     isImage: buttonDisplay,
                     infinite: infinite,
                     alignLeft: alignLeft
                 )
             }
-            .buttonStyle(ActionButtonStyle(isSelected: isSelected))
+            .buttonStyle(PrimaryButtonStyle(isSelected: isSelected))
         }
     }
 }
 
-struct ActionNavigationButton<Destination: View>: View {
+struct PrimaryNavigationButton<Destination: View>: View {
     let buttonDisplay: String
     let infinite: Bool
     let alignLeft: Bool
     var isSelected: Bool = false
     let destination: Destination
-    
+    let id: String
     
     var body: some View {
         VStack {
-            NavigationLink(value: "Action") {
-                PolymorphicButtonContent(
+            NavigationLink(value: id) {
+                PolymorphicButtonStyle(
                     isImage: buttonDisplay,
                     infinite: infinite,
                     alignLeft: alignLeft
                 )
             }
             .navigationDestination(for: String.self) { _ in
-                SettingsView()
+                destination
             }
-            .buttonStyle(ActionButtonStyle(isSelected: isSelected))
+            .buttonStyle(PrimaryButtonStyle(isSelected: isSelected))
             
         }
     }
 }
 
-
 #Preview {
-    ActionButton(buttonDisplay: "apple.homekit", infinite: false, alignLeft: false, action: {})
+    PrimaryButton(buttonDisplay: "apple.homekit", infinite: false, alignLeft: false, action: {})
 }
 
-//#Preview {
-//    ActionNavigationButton(buttonIcon: "apple.homekit", infinite: false, destination: EmptyView())
-//}

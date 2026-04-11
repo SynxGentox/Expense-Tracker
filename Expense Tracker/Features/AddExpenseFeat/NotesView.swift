@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NotesFeat: View {
+struct NotesView: View {
     @Binding var notesValue: String?
     @FocusState var isEditing: Bool
     
@@ -26,12 +26,18 @@ struct NotesFeat: View {
             .background(CardT.cardColGray.valueCC)
             .clipShape(RoundedRectangle(cornerRadius: CardT.CRadNPad.radius.valueCR))
             .overlay(alignment: .topLeading) {
-                if notesValue == nil || notesValue!.isEmpty {
-                    Text("Description?")
+                if notesValue?.isEmpty ?? true {
+                    Text("Note  \(notesValue?.count ?? 0)/100")
                         .secondaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                         .allowsHitTesting(false)
                         .padding(26)
                 }
+            }
+            .onChange(of: notesValue) { _ , new in
+                if let new, new.count > 100 {
+                    notesValue = String(new.prefix(100))
+                }
+                
             }
         }
         .frame(maxWidth: CardT.CWidth.largeW.valueCW, maxHeight: CardT.CHeight.xLargeH.cardCH + 20)
@@ -39,5 +45,5 @@ struct NotesFeat: View {
 }
 
 #Preview {
-    NotesFeat(notesValue: .constant(""))
+    NotesView(notesValue: .constant(""))
 }

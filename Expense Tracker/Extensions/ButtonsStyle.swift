@@ -13,7 +13,7 @@ struct PrimaryButtonStyle: ButtonStyle {
         configuration.label
             .background(
                 configuration.isPressed || isSelected
-                ? Color.gray.opacity(0.8)
+                ? Color.white.opacity(0.7)
                 : ButtonT.BColor.ColAccent.valueBC // Your default color
             )
             .clipShape(.capsule)
@@ -36,7 +36,7 @@ struct ActionButtonStyle: ButtonStyle {
         configuration.label
             .background(
                 configuration.isPressed || isSelected
-                ? Color.gray.opacity(0.8)
+                ? Color.green
                 : ButtonT.BColor.ColPrimary.valueBC // Your default color
             )
             .clipShape(.capsule)

@@ -8,24 +8,20 @@
 import SwiftUI
 
 struct SettingsView: View {
-    let arrAcc = [
-        "Profile" : "person.circle",
-        "Privacy & Security" : "person.badge.key"
+    let arrAcc = [SettingsItems(title: "Profile", icon: "person.circle"),
+                  SettingsItems(title: "Change password", icon: "person.badge.key")
     ]
-    let arrGen = [
-        "Notification" : "bell",
-        "Language" : "a.circle",
-        "Appearance" : "swatchpalette",
-        "Currency code" : "dollarsign.circle"
+    let arrGen = [SettingsItems(title: "Notificaiton", icon: "bell"),
+                  SettingsItems(title: "Language", icon: "a.circle"),
+                  SettingsItems(title: "Theme", icon: "swatchpalette"),
+                  SettingsItems(title: "Currency", icon: "dollarsign.circle")
     ]
-    let arrPre = [
-        "Support" : "questionmark.circle",
-        "Send feedback" : "ladybug",
-        "About" : "info.circle"
+    let arrPre = [SettingsItems(title: "Support", icon: "questionmark.circle"),
+                  SettingsItems(title: "Rate us", icon: "star.fill"),
+                  SettingsItems(title: "Send Feedback", icon: "ladybug"),
+                  SettingsItems(title: "About", icon: "info.circle")
     ]
-    
     var body: some View {
-        
             Form {
                 ZStack(alignment: .leading) {
                     Button {
@@ -61,9 +57,9 @@ struct SettingsView: View {
                     
                 }
                 Section("Account") {
-                    ForEach(arrAcc.sorted(by: >), id: \.key) { (title, key) in
+                    ForEach(arrAcc, id: \.title) { item in
                         HStack{
-                            Image(systemName: key)
+                            Image(systemName: item.icon)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 24, maxHeight: .infinity)
@@ -71,7 +67,7 @@ struct SettingsView: View {
                             Button {
                                 
                             } label: {
-                                Text(title)
+                                Text(item.title)
                                     .foregroundStyle(
                                         ButtonT.BColor.ColPrimary.valueBC
                                     )
@@ -81,9 +77,9 @@ struct SettingsView: View {
                 }
                 
                 Section("General") {
-                    ForEach(arrGen.sorted(by: >), id: \.key) { (title, key) in
+                    ForEach(arrGen, id: \.title) { item in
                         HStack{
-                            Image(systemName: key)
+                            Image(systemName: item.icon)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 24, maxHeight: .infinity)
@@ -91,7 +87,7 @@ struct SettingsView: View {
                             Button {
                                 
                             } label: {
-                                Text(title)
+                                Text(item.title)
                                     .foregroundStyle(
                                         ButtonT.BColor.ColPrimary.valueBC
                                     )
@@ -101,9 +97,9 @@ struct SettingsView: View {
                 }
                 
                 Section("Preferences") {
-                    ForEach(arrPre.sorted(by: >), id: \.key) { (title, key) in
+                    ForEach(arrPre, id: \.title) { item in
                         HStack{
-                            Image(systemName: key)
+                            Image(systemName: item.icon)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 24, maxHeight: .infinity)
@@ -111,7 +107,7 @@ struct SettingsView: View {
                             Button {
                                 
                             } label: {
-                                Text(title)
+                                Text(item.title)
                                     .foregroundStyle(
                                         ButtonT.BColor.ColPrimary.valueBC
                                     )
@@ -126,4 +122,9 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+}
+
+struct SettingsItems {
+    var title: String
+    var icon: String
 }

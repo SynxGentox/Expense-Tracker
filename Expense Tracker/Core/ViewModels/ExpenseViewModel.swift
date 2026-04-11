@@ -8,15 +8,16 @@
 import Foundation
 import SwiftData
 import Observation
+import SwiftUI
 
 @Observable
-class ExpenseVM {
+class ExpenseViewModel {
     
     /// - Parameters: expenses, errorMessage, data
     ///  - expenses: Holds the array of the expenses
     ///  - errorMessage: Holds the error thrown form the function bombing
     ///  - data: private property that conforms to the protocol
-    var expenses: [ExpensesData] = []
+    var expenses: [ExpensesModel] = []
     var errorMessage: String?
     private let data: ExpensesRepository
     var selectedSort: SortOptions = .newestFirst
@@ -46,7 +47,7 @@ class ExpenseVM {
     ///   - initialises the errorMessage property with the error thrown by the failure of the trial to fetch and initialises the data from database
     func fetchData() {
         do {
-            try self.expenses = data.fetchExpenses()
+            self.expenses = try data.fetchExpenses()
         }
         catch {
             self.errorMessage = error.localizedDescription
@@ -73,11 +74,11 @@ class ExpenseVM {
             do {
                 if amount == 0.0{
                     throw ValidationError.zeroAmount
-                }
-                sensfeedback.toggle()
+                } else {
+                    sensfeedback.toggle()
                     try data
                         .addExpense(
-                            expense: ExpensesData(
+                            expense: ExpensesModel(
                                 amount: amount,
                                 note: note,
                                 date: date,
@@ -88,14 +89,14 @@ class ExpenseVM {
                                 activityTitle: activityTitle
                             )
                         )
+                }
             } catch {
                 self.errorMessage = error.localizedDescription
-//                debugPrint(error)
             }
             fetchData()
     }
     
-    var displayExpenses: [ExpensesData] {
+    var displayExpenses: [ExpensesModel] {
         /// - Parameters: result holds the raw data of expenses
         var result = expenses
         
@@ -117,8 +118,15 @@ class ExpenseVM {
     }
     
     // 1. The Mutable State (You can build a View to change this later)
-    var totalBudget: Double = 2000.0
-
+    
+    // HardCoded Data needs to be input and saved once and permanently form Profile View
+    @ObservationIgnored @AppStorage("totalBudget")  var totalBudget:  Double = 0.0
+    @ObservationIgnored @AppStorage("displayName")  var displayName:  String = "Unknown"
+    @ObservationIgnored @AppStorage("cardName")     var cardName:     String = "Not Set"
+    @ObservationIgnored @AppStorage("cardNumber")   var cardNumber:   String = "xxxx xxxx xxxx xxxx"
+    @ObservationIgnored @AppStorage("cardType")     var cardType:     String = "unknown Type"
+    @ObservationIgnored @AppStorage("cardTypeLogo") var cardTypeLogo: String = "app.background.dotted"
+    
     // 2. The Computed Spent (Auto-updates whenever expenses change)
     var totalSpent: Double {
         // Using the Series A shorthand we talked about
@@ -131,7 +139,7 @@ class ExpenseVM {
     }
     
     
-    var chartArray: [ExpensesData] {
+    var chartArray: [ExpensesModel] {
         return expenses.filter{ $0.date >= Calendar.current.date(byAdding: topButton.stride, value: -bottomButton.rawValue, to: Date()) ?? .now}
             .sorted{ $0.date < $1.date }
     }
@@ -155,7 +163,7 @@ enum ChartTopButton: CaseIterable {
     
     var stride: Calendar.Component {
         switch self {
-        case .main: return .weekOfYear
+        case .main: return .day
         case .monthly: return .month
         case .yearly: return .year
         }
@@ -178,7 +186,7 @@ enum ChartBottomButton: Int, CaseIterable {
     
     var title: String {
         switch self {
-        case .today: return "today"
+        case .today: return "Today"
         case .threeDays: return "3 days"
         case .fiveDays: return "5 days"
         case .sevenDays: return "7 days"

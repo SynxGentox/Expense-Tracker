@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PrimaryFontStyleExt: ViewModifier {
+struct PrimaryFontStyle: ViewModifier {
     let fontSize: CGFloat
     func body(content: Content) -> some View {
         content
@@ -20,11 +20,11 @@ struct PrimaryFontStyleExt: ViewModifier {
 
 extension View {
     func primaryFontStyleExt(fontSize: CGFloat) -> some View {
-        modifier(PrimaryFontStyleExt(fontSize: fontSize))
+        modifier(PrimaryFontStyle(fontSize: fontSize))
     }
 }
 
-struct SecondaryFontStyleExt: ViewModifier {
+struct SecondaryFontStyle: ViewModifier {
     let fontSize: CGFloat
     func body(content: Content) -> some View {
         content
@@ -37,18 +37,18 @@ struct SecondaryFontStyleExt: ViewModifier {
 
 extension View {
     func secondaryFontStyleExt(fontSize: CGFloat) -> some View {
-        modifier(SecondaryFontStyleExt(fontSize: fontSize))
+        modifier(SecondaryFontStyle(fontSize: fontSize))
     }
 }
 
 
-struct AmountFontStyleExt: ViewModifier {
+struct AmountFontStyle: ViewModifier {
     let numSize: CGFloat
     func body(content: Content) -> some View {
         content
             .foregroundStyle(.primary)
             .font(
-                .system(size: numSize, weight: .bold, design: .default)
+                .system(size: numSize, weight: .medium, design: .default)
             )
             
     }
@@ -56,6 +56,6 @@ struct AmountFontStyleExt: ViewModifier {
 
 extension View {
     func amountFontStyleExt(numSize: CGFloat) -> some View {
-        modifier(AmountFontStyleExt(numSize: numSize))
+        modifier(AmountFontStyle(numSize: numSize))
     }
 }

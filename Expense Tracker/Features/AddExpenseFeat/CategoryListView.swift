@@ -10,7 +10,7 @@ import SwiftData
 
 import SwiftUI
 
-struct CategoryViewFeat: View {
+struct CategoryListView: View {
     // 1. The State Transfer
     @Binding var selectedCategory: String
     @Binding var selectedIcon: String
@@ -67,5 +67,5 @@ struct CategoryViewFeat: View {
 }
 
 #Preview {
-    CategoryViewFeat(selectedCategory: .constant("ssd"), selectedIcon: .constant("bell"))
+    CategoryListView(selectedCategory: .constant("ssd"), selectedIcon: .constant("bell"))
 }

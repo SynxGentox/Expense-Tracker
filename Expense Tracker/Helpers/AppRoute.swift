@@ -10,5 +10,5 @@
 enum AppRoute: Hashable {
     case notification
     case addExpense
-    case categoryView
+    case historyView
 }

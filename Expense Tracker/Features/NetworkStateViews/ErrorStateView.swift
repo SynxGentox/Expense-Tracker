@@ -22,7 +22,7 @@ struct ErrorStateView: View {
                     .foregroundStyle(.orange)
                     .symbolRenderingMode(.multicolor)
                     .symbolEffect(.breathe)
-                SkeletonFlashFeat(isAnimating: true, size: size)
+                SkeletonFlashView(isAnimating: true, size: size)
                     .blendMode(.destinationOut)
             }
             Text("Error Connecting: \(String(describing: error))")

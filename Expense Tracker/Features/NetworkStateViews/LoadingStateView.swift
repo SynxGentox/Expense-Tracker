@@ -17,7 +17,7 @@ struct LoadingStateView: View {
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
                         .frame(height: size) // No need for maxWidth: .infinity, it does that natively
                         .foregroundColor(Color(.systemGray6))
-                    ContentSkeletonFeat(contentSize: size)
+                    ContentSkeletonView(contentSize: size)
                 }
             }
             Spacer()

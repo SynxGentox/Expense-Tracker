@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentSkeletonFeat: View {
+struct ContentSkeletonView: View {
     let contentSize: CGFloat
 
     var body: some View {
@@ -35,7 +35,7 @@ struct ContentSkeletonFeat: View {
             .frame(minWidth: size, maxHeight: size)
             .foregroundColor(Color(.systemGray5))
             .padding(16)
-            SkeletonFlashFeat(isAnimating: true, size: size)
+            SkeletonFlashView(isAnimating: true, size: size)
                 .blendMode(.destinationOut)
         }
         .compositingGroup()
@@ -43,5 +43,5 @@ struct ContentSkeletonFeat: View {
 }
 
 #Preview {
-    ContentSkeletonFeat(contentSize: 210)
+    ContentSkeletonView(contentSize: 210)
 }
