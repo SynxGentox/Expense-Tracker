@@ -153,10 +153,18 @@ struct RecentListView: View {
                                     .foregroundStyle(Color.primary)
                             }
                         } else {
-                            Text("No note available! ;)")
-                                .multilineTextAlignment(.center)
-                                .padding(8)
-                                .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                            
+                            ZStack{
+                                CardBackground(cornerRadius: CardT.CRadNPad.radius.valueCR - 16,
+                                               cardWidth: CardT.CWidth.largeW.valueCW,
+                                               cardHeight: CardT.CHeight.smallH.cardCH,
+                                               color: ButtonT.BColor.ColSysBack.valueBC)
+                                Text("No note available! ;)")
+                                    .multilineTextAlignment(.center)
+                                    .padding(8)
+                                    .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
+                                    .foregroundStyle(Color.primary)
+                            }
                         }
                     }
                 }
