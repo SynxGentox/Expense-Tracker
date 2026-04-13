@@ -1,6 +1,4 @@
 # Expense Tracker
-
-# Expense Tracker
 An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repository architecture. Built as a portfolio project to demonstrate production-level iOS development practices.
 
 ---
