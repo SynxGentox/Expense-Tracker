@@ -61,6 +61,7 @@ class ExpenseViewModel {
     ///   - initialises the errorMessage property with the the error thrown by the failure of the trial to addExpense and initialises the data from database
     ///  - calling the fetchData function to fetch the data for the UI
     func saveData(
+        id: UUID,
         amount: Double,
         date: Date,
         category: String,
@@ -79,6 +80,7 @@ class ExpenseViewModel {
                     try data
                         .addExpense(
                             expense: ExpensesModel(
+                                id: id,
                                 amount: amount,
                                 note: note,
                                 date: date,
@@ -94,6 +96,16 @@ class ExpenseViewModel {
                 self.errorMessage = error.localizedDescription
             }
             fetchData()
+    }
+    
+    func deleteExpense(_ expense: ExpensesModel) {
+        do {
+            try data.deleteExpense(expense: expense)
+            NotificationManager.shared.cancelReminder(of: expense.id.uuidString)
+        } catch {
+            self.errorMessage = error.localizedDescription
+        }
+        fetchData()
     }
     
     var displayExpenses: [ExpensesModel] {

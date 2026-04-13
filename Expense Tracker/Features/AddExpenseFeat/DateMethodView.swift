@@ -12,6 +12,7 @@ struct DateMethodView: View {
     @Bindable var viewModel: ExpenseViewModel
     @Binding var payId: String
     @Binding var payMethodIcon: String
+    @Binding var isScheduled: Bool
     
     var body: some View {
         HStack {
@@ -27,11 +28,25 @@ struct DateMethodView: View {
                             .padding(.leading, 6)
                         Spacer()
                     }
-                    DatePicker("Date", selection: $viewModel.expenseDate, in: ...Date.now, displayedComponents: .date)
+                    if isScheduled {
+                        DatePicker("Date", selection: $viewModel.expenseDate,
+                            in: Date.now...,
+                            displayedComponents: .date)
                         .padding(.trailing)
                         .padding(.top, 10)
                     .datePickerStyle(.compact)
                     .labelsHidden()
+                    } else {
+                        DatePicker("Date", selection: $viewModel.expenseDate,
+                            in: ...Date.now,
+                            displayedComponents: .date)
+                        .padding(.trailing)
+                        .padding(.top, 10)
+                    .datePickerStyle(.compact)
+                    .labelsHidden()
+                    }
+                    
+                    
                     
                     // add a date picker with date property as default value
                     Spacer()
@@ -95,6 +110,6 @@ struct DateMethodView: View {
     DateMethodView(
             viewModel: previewVM,
             payId: .constant("Cash"),
-            payMethodIcon: .constant("rectangle.stack.fill")
+            payMethodIcon: .constant("rectangle.stack.fill"), isScheduled: .constant(false)
         )
 }

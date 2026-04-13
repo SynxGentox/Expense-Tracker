@@ -20,7 +20,8 @@ class ExpensesModel: Identifiable {
     var payMethodIcon: String
     var activityTitle: String
     
-    init(amount: Double, note: String, date: Date, category: String, categoryIcon: String, payId: String, payMethodIcon: String, activityTitle: String) {
+    init(id: UUID = UUID(), amount: Double, note: String, date: Date, category: String, categoryIcon: String, payId: String, payMethodIcon: String, activityTitle: String) {
+        self.id = id
         self.amount = amount
         self.note = note
         self.date = date

@@ -13,6 +13,8 @@ struct RecentListView: View {
     @State var isExpanded: Bool = false
     let expense: ExpensesModel
     let isHistory: Bool
+    @State private var showDeleteAlert: Bool = false
+    @Environment(ExpenseViewModel.self) private var viewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -151,6 +153,17 @@ struct RecentListView: View {
                                     .primaryFontStyleExt(fontSize: FontT.primaryF.valueF)
                                     .foregroundStyle(Color.primary)
                             }
+                            .padding(.trailing, 12)
+                        Button(role: .destructive) {
+                            showDeleteAlert = true
+                        } label: {
+                            Image(systemName: "trash")
+                                .frame(maxHeight: ButtonT.BHeight.circleH.valusBH - 8)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
+                        
+                        
                     }
                 }
             }
@@ -170,6 +183,14 @@ struct RecentListView: View {
                 isExpanded.toggle()
             }
         }
+        .alert("Delete Expense?", isPresented: $showDeleteAlert) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                viewModel.deleteExpense(expense)
+            }
+        } message: {
+            Text("This can't be undone.")
+        }
     }
 }
 
@@ -184,5 +205,13 @@ struct RecentListView: View {
         payMethodIcon: "dog",
         activityTitle: "blah"
     )
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(
+        for: ExpensesModel.self,
+        configurations: config
+    )
+    
+    let repo = SwiftDataExpenseRepository(data: container.mainContext)
     RecentListView(expense: dummyData, isHistory: true)
+        .environment(ExpenseViewModel(data: repo))
 }

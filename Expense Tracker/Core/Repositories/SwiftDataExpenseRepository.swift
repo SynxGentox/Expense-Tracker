@@ -18,12 +18,14 @@ class SwiftDataExpenseRepository: ExpensesRepository {
     func addExpense(expense: ExpensesModel) throws {
         data.insert(expense)
         try data.save()
-        
-        
     }
     
     func fetchExpenses() throws -> [ExpensesModel] {
         try data.fetch(FetchDescriptor<ExpensesModel>())
-        
+    }
+    
+    func deleteExpense(expense: ExpensesModel) throws {
+        data.delete(expense)
+        try data.save()
     }
 }

@@ -11,6 +11,7 @@ import SwiftData
 protocol ExpensesRepository {
     func addExpense(expense: ExpensesModel) throws
     func fetchExpenses() throws -> [ExpensesModel]
+    func deleteExpense(expense: ExpensesModel) throws
 }
 
 

@@ -19,6 +19,8 @@ struct AddExpenseView: View {
     @State private var payMethodIcon: String = "document.on.clipboard"
     @State private var activityTitle: String = "Unknown"
     @State private var hapticCount = 0
+    @State private var isScheduled: Bool = false
+    @State private var expenseID: UUID = UUID()
     
     
     var body: some View {
@@ -45,8 +47,10 @@ struct AddExpenseView: View {
                 DateMethodView(
                     viewModel: viewModel,
                     payId: $payId,
-                    payMethodIcon: $payMethodIcon
+                    payMethodIcon: $payMethodIcon,
+                    isScheduled: $isScheduled
                 )
+            Toggle("Schedule this expense", isOn: $isScheduled)
                 Spacer().frame(height: 8)
                     
                 NotesView(notesValue: $notesInput)
@@ -70,6 +74,7 @@ struct AddExpenseView: View {
                 else {
                     Button {
                         viewModel.saveData(
+                            id: expenseID,
                             amount: amountInput ?? 0.0,
                             date: viewModel.expenseDate,
                             category: categoryInput,
@@ -79,6 +84,16 @@ struct AddExpenseView: View {
                             payMethodIcon: payMethodIcon,
                             activityTitle: activityTitle
                         )
+                        if isScheduled {
+                            NotificationManager.shared.scheduleExpenseReminder(
+                                at: viewModel.expenseDate,
+                                amount: amountInput ?? 0.0,
+                                title: activityTitle,
+                                id: expenseID
+                            )
+                        }
+                        expenseID = UUID() // reset for next expense
+                        isScheduled = false
                     } label: {
                         Text("Save")
                     }.buttonStyle(.borderedProminent)

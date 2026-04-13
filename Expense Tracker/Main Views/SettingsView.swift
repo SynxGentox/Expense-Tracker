@@ -11,7 +11,7 @@ struct SettingsView: View {
     let arrAcc = [SettingsItems(title: "Profile", icon: "person.circle"),
                   SettingsItems(title: "Change password", icon: "person.badge.key")
     ]
-    let arrGen = [SettingsItems(title: "Notificaiton", icon: "bell"),
+    let arrGen = [SettingsItems(title: "Notificaitons", icon: "bell"),
                   SettingsItems(title: "Language", icon: "a.circle"),
                   SettingsItems(title: "Theme", icon: "swatchpalette"),
                   SettingsItems(title: "Currency", icon: "dollarsign.circle")
@@ -24,16 +24,16 @@ struct SettingsView: View {
     var body: some View {
             Form {
                 ZStack(alignment: .leading) {
-                    Button {
+                    NavigationLink {
                         
                     } label: {
                         Image(systemName: "person.and.background.dotted")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 44, alignment: .leading)
-                            .foregroundStyle(ButtonT.BColor.ColAccent.valueBC)
+                            .padding(.trailing)
+                            .foregroundStyle(.accent)
                     }
-                    
                     
                     Text("Gentox")
                         .amountFontStyleExt(numSize: FontT.titleF.valueF)
@@ -58,61 +58,64 @@ struct SettingsView: View {
                 }
                 Section("Account") {
                     ForEach(arrAcc, id: \.title) { item in
-                        HStack{
-                            Image(systemName: item.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 24, maxHeight: .infinity)
-                                .padding(.horizontal, 4)
-                            Button {
+                        NavigationLink {
                                 
                             } label: {
-                                Text(item.title)
-                                    .foregroundStyle(
-                                        ButtonT.BColor.ColPrimary.valueBC
-                                    )
+                                HStack{
+                                    Image(systemName: item.icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 24, maxHeight: .infinity)
+                                        .foregroundStyle(.accent)
+                                        .padding(.trailing, 6)
+                                    Text(item.title)
+                                        .foregroundStyle(
+                                            ButtonT.BColor.ColPrimary.valueBC
+                                        )
+                                }
                             }
-                        }
                     }
                 }
                 
                 Section("General") {
                     ForEach(arrGen, id: \.title) { item in
-                        HStack{
-                            Image(systemName: item.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 24, maxHeight: .infinity)
-                                .padding(.horizontal, 4)
-                            Button {
+                        NavigationLink {
                                 
                             } label: {
-                                Text(item.title)
-                                    .foregroundStyle(
-                                        ButtonT.BColor.ColPrimary.valueBC
-                                    )
+                                HStack{
+                                    Image(systemName: item.icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 24, maxHeight: .infinity)
+                                        .padding(.trailing, 6)
+                                        .foregroundStyle(.accent)
+                                    Text(item.title)
+                                        .foregroundStyle(
+                                            ButtonT.BColor.ColPrimary.valueBC
+                                        )
+                                }
                             }
-                        }
                     }
                 }
                 
                 Section("Preferences") {
                     ForEach(arrPre, id: \.title) { item in
-                        HStack{
-                            Image(systemName: item.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 24, maxHeight: .infinity)
-                                .padding(.horizontal, 4)
-                            Button {
+                            NavigationLink {
                                 
                             } label: {
-                                Text(item.title)
-                                    .foregroundStyle(
-                                        ButtonT.BColor.ColPrimary.valueBC
-                                    )
+                                HStack{
+                                    Image(systemName: item.icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 24, maxHeight: .infinity)
+                                        .padding(.trailing, 6)
+                                        .foregroundStyle(.accent)
+                                    Text(item.title)
+                                        .foregroundStyle(
+                                            ButtonT.BColor.ColPrimary.valueBC
+                                        )
+                                }
                             }
-                        }
                     }
                 }
             }
@@ -121,7 +124,10 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    
+    NavigationStack {
+        SettingsView()
+    }
 }
 
 struct SettingsItems {

@@ -11,6 +11,7 @@ import SwiftData
 struct ViewLoader: View {
     @Environment(\.modelContext) private var context
     @State private var viewModel: ExpenseViewModel?
+    @State private var currencyViewModel = CurrencyViewModel(apiProtocol: CurrencyServiceRepository())
     
     
     var body: some View {
@@ -20,7 +21,7 @@ struct ViewLoader: View {
         ZStack {
             if let viewModel {
                 TabView {
-                    Tab.init("", systemImage: "rectangle.3.group.fill") {
+                    Tab.init("Dashboard", systemImage: "rectangle.3.group.fill") {
                         NavigationStack {
                             DashBoardView()
                                 .toolbar {
@@ -40,7 +41,7 @@ struct ViewLoader: View {
                                         }
                         }
                     }
-                    Tab.init("",systemImage: "chart.xyaxis.line") {
+                    Tab.init("History",systemImage: "chart.xyaxis.line") {
                         NavigationStack {
                             HistoryView()
                                 .toolbar {
@@ -97,13 +98,15 @@ struct ViewLoader: View {
                                 
                         }
                     }
-                    Tab.init("",systemImage: "person.and.background.dotted") {
+                    Tab.init("Currency exchange", systemImage: "dollarsign.circle") {
+                        NavigationStack {
+                            NetworkStateContorller(state: currencyViewModel.networkState)
+                        }
+                    }
+                    Tab.init("Profile", systemImage: "person.and.background.dotted") {
                         NavigationStack{
                             ProfileView()
                         }
-                    }
-                    Tab(role: .search) {
-                        NavigationStack {  }
                     }
                 }
                 .environment(viewModel)
