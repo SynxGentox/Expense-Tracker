@@ -15,6 +15,7 @@ struct RecentListView: View {
     let isHistory: Bool
     @State private var showDeleteAlert: Bool = false
     @Environment(ExpenseViewModel.self) private var viewModel
+    var scrollProxy: ScrollViewProxy?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -182,6 +183,12 @@ struct RecentListView: View {
             withAnimation(.bouncy(extraBounce: 0.15)) {
                 isExpanded.toggle()
             }
+            withAnimation(.bouncy(extraBounce: 0.15)) {
+                isExpanded.toggle()
+                if isExpanded {
+                    scrollProxy?.scrollTo(expense.id, anchor: .top)
+                }
+            }
         }
         .alert("Delete Expense?", isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) {}
@@ -191,6 +198,7 @@ struct RecentListView: View {
         } message: {
             Text("This can't be undone.")
         }
+        .id(expense.id)
     }
 }
 

@@ -12,6 +12,9 @@ struct TransNCatView: View {
     let title: String
     let isHistory: Bool
     let showExpandButton: Bool
+    var scrollProxy: ScrollViewProxy?
+    @Binding var selectedTab: Int
+    
     var body: some View {
         VStack {
             HStack {
@@ -22,12 +25,9 @@ struct TransNCatView: View {
                     .allowsHitTesting(false)
                 Spacer()
                 if showExpandButton {
-                    NavigationLink(value: AppRoute.historyView){
-                        Text("View all")
+                    Button("View all") {
+                        selectedTab = 1
                     }
-                        .navigationDestination(for: String.self){_ in 
-                            HistoryView()
-                        }
                 }
             }
             .padding(.horizontal, 8)
@@ -35,7 +35,7 @@ struct TransNCatView: View {
                     
             if !displayExpenses.isEmpty {
                 ForEach(displayExpenses) { singleExpense in
-                    RecentListView(expense: singleExpense, isHistory: isHistory)
+                    RecentListView(expense: singleExpense, isHistory: isHistory, scrollProxy: scrollProxy)
                 }
                 
             }
@@ -80,6 +80,6 @@ struct TransNCatView: View {
         displayExpenses: dummyData,
         title: "Recent",
         isHistory: true,
-        showExpandButton: false
+        showExpandButton: false, selectedTab: .constant(1)
     )
 }

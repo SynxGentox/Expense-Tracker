@@ -11,13 +11,14 @@ import SwiftData
 struct DashBoardView: View {
     @Environment(ExpenseViewModel.self) private var viewModel
     @Environment(\.colorScheme) private var colorScheme
+    @Binding var selectedTab: Int
     
     
     @State private var isPresented: Bool = false
     
     var body: some View {
         ScrollView {
-            ScrollViewReader { _ in
+            ScrollViewReader { proxy in
                 VStack {
                     GreetingCardView(displayName: viewModel.displayName)
                     Divider()
@@ -39,7 +40,9 @@ struct DashBoardView: View {
                         displayExpenses: Array(viewModel.displayExpenses.prefix(7)),
                         title: "Recent transactions",
                         isHistory: true,
-                        showExpandButton: true
+                        showExpandButton: true,
+                        scrollProxy: proxy,
+                        selectedTab: $selectedTab,
                     )
                 }
             }

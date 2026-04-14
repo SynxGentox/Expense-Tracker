@@ -12,6 +12,7 @@ struct ViewLoader: View {
     @Environment(\.modelContext) private var context
     @State private var viewModel: ExpenseViewModel?
     @State private var currencyViewModel = CurrencyViewModel(apiProtocol: CurrencyServiceRepository())
+    @State private var selectedTab: Int = 0
     
     
     var body: some View {
@@ -20,10 +21,10 @@ struct ViewLoader: View {
         //        let plusButtonSize: CGFloat = 40
         ZStack {
             if let viewModel {
-                TabView {
-                    Tab.init("Dashboard", systemImage: "rectangle.3.group.fill") {
+                TabView(selection: $selectedTab) {
+                    Tab.init("Dashboard", systemImage: "rectangle.3.group.fill", value: 0) {
                         NavigationStack {
-                            DashBoardView()
+                            DashBoardView(selectedTab: $selectedTab)
                                 .toolbar {
                                             ToolbarItem(placement: .topBarTrailing) {
                                                 NavigationLink(value: AppRoute.notification) {
@@ -41,7 +42,7 @@ struct ViewLoader: View {
                                         }
                         }
                     }
-                    Tab.init("History",systemImage: "chart.xyaxis.line") {
+                    Tab.init("History",systemImage: "chart.xyaxis.line", value: 1) {
                         NavigationStack {
                             HistoryView()
                                 .toolbar {
@@ -98,12 +99,12 @@ struct ViewLoader: View {
                                 
                         }
                     }
-                    Tab.init("Currency exchange", systemImage: "dollarsign.circle") {
+                    Tab.init("Currency exchange", systemImage: "dollarsign.circle", value: 2) {
                         NavigationStack {
                             NetworkStateContorller(state: currencyViewModel.networkState)
                         }
                     }
-                    Tab.init("Profile", systemImage: "person.and.background.dotted") {
+                    Tab.init("Profile", systemImage: "person.and.background.dotted", value: 3) {
                         NavigationStack{
                             ProfileView()
                         }
