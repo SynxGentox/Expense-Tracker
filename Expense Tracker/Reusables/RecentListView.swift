@@ -180,10 +180,7 @@ struct RecentListView: View {
                 .fill(CardT.cardColGray.valueCC)
         )
         .onTapGesture {
-            withAnimation(.bouncy(extraBounce: 0.15)) {
-                isExpanded.toggle()
-            }
-            withAnimation(.bouncy(extraBounce: 0.15)) {
+            withAnimation(.spring(duration: 0.6, bounce: 0.3, blendDuration: 0.3)) {
                 isExpanded.toggle()
                 if isExpanded {
                     scrollProxy?.scrollTo(expense.id, anchor: .top)

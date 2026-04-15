@@ -69,6 +69,6 @@ struct DashBoardView: View {
     let repo = SwiftDataExpenseRepository(data: container.mainContext)
     
     //Inject it
-    DashBoardView()
+    DashBoardView(selectedTab: .constant(1))
         .environment(ExpenseViewModel(data: repo))
 }

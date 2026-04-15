@@ -23,9 +23,9 @@ struct PrimaryButtonStyle: ButtonStyle {
                 color: configuration.isPressed ? .white.opacity(0.6) : .clear,
                 radius: configuration.isPressed ? 15 : 0
             )
-            .scaleEffect(configuration.isPressed || isSelected ? 1.1 : 1.0)
+            .scaleEffect(configuration.isPressed || isSelected ? 1.15 : 1.0)
         // Smoothly animate the transition between states
-            .animation(.bouncy(extraBounce: 0.3), value: configuration.isPressed || isSelected)
+            .animation(.spring(duration: 0.3, bounce: 0.5, blendDuration: 0.5), value: configuration.isPressed || isSelected)
             
     }
 }
@@ -46,8 +46,8 @@ struct ActionButtonStyle: ButtonStyle {
                 color: configuration.isPressed ? .white.opacity(0.6) : .clear,
                 radius: configuration.isPressed ? 15 : 0
             )
-            .scaleEffect(configuration.isPressed || isSelected ? 1.1 : 1.0)
+            .scaleEffect(configuration.isPressed || isSelected ? 1.15 : 1.0)
         // Smoothly animate the transition between states
-            .animation(.bouncy(extraBounce: 0.3), value: configuration.isPressed || isSelected)
+            .animation(.spring(duration: 0.3, bounce: 0.5, blendDuration: 0.5), value: configuration.isPressed || isSelected)
     }
 }

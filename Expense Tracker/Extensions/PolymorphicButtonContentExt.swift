@@ -49,8 +49,8 @@ struct PolymorphicButtonStyle: View {
                 .foregroundStyle(ButtonT.BColor.ColSysBack.valueBC)
                 .padding(ButtonT.buttonIcPad.valueBP)
                 .frame(
-                    maxWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.circleW.valueBW,
-                    maxHeight: ButtonT.BHeight.circleH.valusBH
+                    maxWidth: infinite ? ButtonT.BWidth.infiniteW.valueBW : ButtonT.BWidth.smallW.valueBW,
+                    maxHeight: ButtonT.BHeight.smallH.valusBH
                 )
         }
     }

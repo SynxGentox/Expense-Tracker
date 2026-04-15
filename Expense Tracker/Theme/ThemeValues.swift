@@ -40,8 +40,8 @@ enum ButtonT {
         var valueBW: CGFloat  {
             switch self {
             case .infiniteW:            return .infinity
-            case .circleW:              return 58
-            case .smallW:              return 40
+            case .circleW:              return 52
+            case .smallW:              return 44
             }
         }
     }
@@ -53,9 +53,9 @@ enum ButtonT {
         
         var valusBH: CGFloat  {
             switch self {
-            case .circleH:              return 58
+            case .circleH:              return 52
             case .largeH:               return 80
-            case .smallH:               return 40
+            case .smallH:               return 44
             }
         }
     }

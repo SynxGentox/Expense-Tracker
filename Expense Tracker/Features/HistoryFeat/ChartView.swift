@@ -16,7 +16,7 @@ struct ChartView: View {
         VStack {
             HStack {
                 Text("History")
-                    .primaryFontStyleExt(fontSize: FontT.amountF.valueF)
+                    .amountFontStyleExt(numSize: FontT.amountF.valueF)
                 Spacer()
             }
             Spacer().frame(height: 30)
@@ -26,9 +26,11 @@ struct ChartView: View {
                     ActionButton(buttonDisplay: time.title, infinite: true, alignLeft: false, isSelected: viewModel.topButton == time) {
                         viewModel.topButton = time
                     }
+                    .padding(.horizontal, 1)
                 }
             }
             .padding(.vertical, 8)
+            .compositingGroup()
             
             ZStack {
                 CardBackground(
@@ -59,6 +61,7 @@ struct ChartView: View {
                     }
                     .padding()
                     .clipped()
+                    .animation(.spring(duration: 0.8, bounce: 0.3, blendDuration: 0.3), value: viewModel.topButton)
                 }
                 else {
                     VStack {
@@ -69,17 +72,29 @@ struct ChartView: View {
                     }
                 }
             }
-            .frame(maxWidth: CardT.CWidth.largeW.valueCW, maxHeight: CardT.CHeight.xxLargeH.cardCH - 30)
-            HStack {
-                ForEach(ChartBottomButton.allCases, id: \.self) { time in
-                    ActionButton(buttonDisplay: time.title, infinite: true, alignLeft: false, isSelected: viewModel.bottomButton == time) {
-                        viewModel.bottomButton = time
+            .frame(
+                maxWidth: CardT.CWidth.largeW.valueCW,
+                maxHeight: CardT.CHeight.xxLargeH.cardCH - 30
+            )
+            
+            if viewModel.topButton == .main {
+                HStack {
+                    ForEach(ChartBottomButton.allCases, id: \.self) { time in
+                        ActionButton(
+                            buttonDisplay: time.title,
+                            infinite: true,
+                            alignLeft: false,
+                            isSelected: viewModel.bottomButton == time
+                        ) {
+                            viewModel.bottomButton = time
+                        }
+                        .padding(.horizontal, 1)
                     }
                 }
+                .padding(.vertical, 8)
+                .padding(.bottom, 10)
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
-            .padding(.vertical, 8)
-            .padding(.bottom, 10)
-            .disabled(viewModel.topButton != ChartTopButton.main)
         }
         .padding(.horizontal, 8)
     }

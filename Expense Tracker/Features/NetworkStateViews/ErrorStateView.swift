@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ErrorStateView: View {
-    @State var isAnimating: Bool = true
     let error: Error?
     let reload: () -> Void
     var body: some View {
@@ -29,6 +28,9 @@ struct ErrorStateView: View {
                 .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
                 .padding(.bottom, 30)
             PrimaryButton(buttonDisplay: "arrow.trianglehead.counterclockwise", infinite: false, alignLeft: false, action: reload)
+                .onTapGesture {_ in
+                    Task { try? await Task.sleep(nanoseconds: 1_800_000_000) }
+                }
             
         }
         .compositingGroup()

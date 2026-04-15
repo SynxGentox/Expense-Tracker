@@ -124,7 +124,7 @@ struct SuccessStateView: View {
                         outputCurr = tmp
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    .frame(maxWidth: sqCardSize + 40, alignment: .leading)
+                    .frame(maxWidth: sqCardSize + 35, alignment: .leading)
             }
             .toolbar  {
                 ToolbarItem(placement: .keyboard) {

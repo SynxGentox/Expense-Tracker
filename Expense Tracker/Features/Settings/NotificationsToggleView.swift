@@ -34,6 +34,7 @@ struct NotificationsToggleView: View {
                     }
                 }
         }
+        .navigationTitle("Notification Settings")
     }
 }
 

@@ -99,7 +99,7 @@ struct ViewLoader: View {
                                 
                         }
                     }
-                    Tab.init("Currency exchange", systemImage: "dollarsign.circle", value: 2) {
+                    Tab.init("Currency", systemImage: "dollarsign.circle", value: 2) {
                         NavigationStack {
                             NetworkStateContorller(state: currencyViewModel.networkState)
                         }

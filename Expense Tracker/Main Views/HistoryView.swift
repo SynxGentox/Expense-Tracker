@@ -15,12 +15,20 @@ struct HistoryView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 0) {
-                    ChartView()
-                    Divider()
-                        .padding(.bottom)
-                    TransNCatView(displayExpenses: viewModel.displayExpenses, title: "History", isHistory: true, showExpandButton: false)
-                        .padding(.horizontal, 8)
+                ScrollViewReader { proxy in
+                    VStack(spacing: 0) {
+                        ChartView()
+                        Divider()
+                            .padding(.bottom)
+                        TransNCatView(
+                            displayExpenses: viewModel.displayExpenses,
+                            title: "History",
+                            isHistory: true,
+                            showExpandButton: false,
+                            scrollProxy: proxy,
+                            selectedTab: .constant(1))
+                            .padding(.horizontal, 8)
+                    }
                 }
             }
         }
@@ -30,6 +38,7 @@ struct HistoryView: View {
             // It triggers the native iOS spinning wheel until the function completes.
             viewModel.fetchData()
         }
+        .animation(.spring(duration: 0.6, bounce: 0.3, blendDuration: 0.3), value: viewModel.topButton)
     }
 }
 

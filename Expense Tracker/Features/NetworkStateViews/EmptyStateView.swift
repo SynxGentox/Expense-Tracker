@@ -28,6 +28,9 @@ struct EmptyStateView: View {
             alignLeft: false,
             action: reload
         )
+        .onTapGesture {_ in
+            Task { try? await Task.sleep(nanoseconds: 1_800_000_000) }
+        }
     }
 }
 

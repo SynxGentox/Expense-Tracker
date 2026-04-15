@@ -13,11 +13,11 @@ struct SkeletonFlashView: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: value, style: .continuous)
-            .fill(ButtonT.BColor.ColPrimary.valueBC)
-            .frame(maxWidth: value , maxHeight: size * 1.2)
+            .fill(ButtonT.BColor.ColGrayStatic.valueBC.opacity(0.3))
+            .frame(maxWidth: CardT.CWidth.mediumW.valueCW - 10,
+                   maxHeight: size * 1.2)
 //            .rotationEffect(Angle(degrees: angle))
-            .blur(radius: value * 2)
-            .shadow(color: .gray, radius: 20)
+            .blur(radius: value * 3)
             .offset(x: isAnimating ? -(size + size) : size + size)
             .onAppear {
                 withAnimation(.linear(duration: xSeconds).repeatForever(autoreverses: false)) {
@@ -30,10 +30,10 @@ struct SkeletonFlashView: View {
         3.14 * 3.14
     }
     var xSeconds: Double {
-        0.7
+        1.5
     }
     var value: CGFloat {
-        angle/2 / xSeconds
+        angle / xSeconds
     }
 }
 
