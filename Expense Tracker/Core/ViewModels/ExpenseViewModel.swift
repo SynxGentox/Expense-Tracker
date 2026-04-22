@@ -132,23 +132,32 @@ class ExpenseViewModel {
     // 1. The Mutable State (You can build a View to change this later)
     
     // HardCoded Data needs to be input and saved once and permanently form Profile View
-    @ObservationIgnored @AppStorage("totalBudget")  var totalBudget:  Double = 0.0
-    @ObservationIgnored @AppStorage("displayName")  var displayName:  String = "Unknown"
-    @ObservationIgnored @AppStorage("cardName")     var cardName:     String = "Not Set"
-    @ObservationIgnored @AppStorage("cardNumber")   var cardNumber:   String = "xxxx xxxx xxxx xxxx"
-    @ObservationIgnored @AppStorage("cardType")     var cardType:     String = "unknown Type"
-    @ObservationIgnored @AppStorage("cardTypeLogo") var cardTypeLogo: String = "app.background.dotted"
+    var totalBudget:  Double = 0.0
+    var displayName:  String = "Unknown"
+    var cardName:     String = "Not Set"
+    var cardNumber:   String = "xxxx xxxx xxxx xxxx"
+    var cardType:     String = "unknown Type"
+    var cardTypeLogo: String = "app.background.dotted"
     
     // 2. The Computed Spent (Auto-updates whenever expenses change)
     var totalSpent: Double {
         // Using the Series A shorthand we talked about
         displayExpenses.reduce(0) { $0 + $1.amount }
     }
-
-    // 3. The Computed Balance (Auto-updates whenever budget or spent changes)
-    var remainingBalance: Double {
-        totalBudget - totalSpent
+    func profileData(totalBudget: Double, displayName: String, cardName: String, cardNumber: String, cardType: String, cardTypeLogo: String) {
+        @ObservationIgnored @AppStorage("totalBudget") var totalBudget:  Double = 0.0
+        @ObservationIgnored @AppStorage("displayName") var displayName:  String = "Unknown"
+        @ObservationIgnored @AppStorage("cardName") var cardName:     String = "Not Set"
+        @ObservationIgnored @AppStorage("cardNumber") var cardNumber:   String = "xxxx xxxx xxxx xxxx"
+        @ObservationIgnored @AppStorage("cardType") var cardType:     String = "unknown Type"
+        @ObservationIgnored @AppStorage("cardTypeLogo") var cardTypeLogo: String = "app.background.dotted"
+        
+        var remainingBalance: Double {
+            totalBudget - totalSpent
+        }
     }
+    // 3. The Computed Balance (Auto-updates whenever budget or spent changes)
+   
     
     
     var chartArray: [ExpensesModel] {

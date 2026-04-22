@@ -19,7 +19,7 @@ struct NetworkStateContorller: View{
         case .loading:
             LoadingStateView()
         case .success(let result):
-            SuccessStateView(result: result.conversionRate)
+                SuccessStateView(result: result.conversionRates)
         }
     }
 }

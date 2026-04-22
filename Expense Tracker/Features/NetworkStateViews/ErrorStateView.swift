@@ -24,18 +24,15 @@ struct ErrorStateView: View {
                 SkeletonFlashView(isAnimating: true, size: size)
                     .blendMode(.destinationOut)
             }
-            Text("Error Connecting: \(String(describing: error))")
+            Text("Error Connecting: \(error?.localizedDescription ?? "")))")
                 .secondaryFontStyleExt(fontSize: FontT.secondaryF.valueF)
                 .padding(.bottom, 30)
             PrimaryButton(buttonDisplay: "arrow.trianglehead.counterclockwise", infinite: false, alignLeft: false, action: reload)
                 .onTapGesture {_ in
-                    Task { try? await Task.sleep(nanoseconds: 1_800_000_000) }
+                    Task { try? await Task.sleep(nanoseconds: 1_333_000_000) }
                 }
-            
         }
         .compositingGroup()
-        
-        
     }
 }
 

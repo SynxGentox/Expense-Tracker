@@ -17,7 +17,7 @@ struct NotificationView: View {
                 .navigationTitle("Notifications")
                 .toolbarVisibility(.hidden, for: .tabBar)
                 .refreshable {
-                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                    try? await Task.sleep(nanoseconds: 1_333_000_000)
                     // This closure fires exactly when the user pulls the screen down far enough.
                     // It triggers the native iOS spinning wheel until the function completes.
                     viewModel.fetchData()

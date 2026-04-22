@@ -10,8 +10,48 @@ import SwiftData
 
 struct ProfileView: View {
     @Environment(ExpenseViewModel.self) private var viewModel
+    @State var totalBudget: Double?
+    @State var displayName: String?
+    @State var cardName: String?
+    @State var cardNumber: String?
+    @State var cardType: String?
+    @State var cardTypeLogo: String?
+    @FocusState var isEditing: Bool
+    
     var body: some View {
-                    Text("Hello World!")
+        Form {
+            Section("Total Budget") {
+                AmountInputField(amountInput: $totalBudget)
+            }
+            Section("Your Details") {
+                TextField("Full Name", text: Binding(
+                    get: {displayName ?? ""},
+                    set: {displayName = $0.isEmpty ? "Hey There" : $0}
+                ))
+            }
+            Section("CardDetails") {
+                TextField("Card Name", text: Binding(
+                    get: {cardName ?? ""},
+                    set: {cardName = $0.isEmpty ? "Card Name" : $0}
+                ))
+                
+                TextField("Card Number", text: Binding(
+                    get: {cardNumber ?? ""},
+                    set: {cardNumber = $0.isEmpty ? "xxxx_xxxx_xxxx_xxxx" : $0}
+                ))
+                
+                TextField("Card Type", text: Binding(
+                    get: {cardType ?? ""},
+                    set: {cardType = $0.isEmpty ? "no Type" : $0}
+                ))
+                
+                TextField("Card Logo", text: Binding(
+                    get: {cardTypeLogo ?? ""},
+                    set: {cardTypeLogo = $0.isEmpty ? "Card Logo" : $0}
+                ))
+            }
+        }
+        .focused($isEditing)
                 .navigationTitle("Profile")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing){
@@ -24,10 +64,18 @@ struct ProfileView: View {
                     }
                 }
                 .refreshable {
-                    try? await Task.sleep(nanoseconds: 1_800_000_000)
+                    try? await Task.sleep(nanoseconds: 1_333_000_000)
                     // This closure fires exactly when the user pulls the screen down far enough.
                     // It triggers the native iOS spinning wheel until the function completes.
                     viewModel.fetchData()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing)
+                    {
+                        Button("Save") {
+                            viewModel.profileData(totalBudget: totalBudget ?? 0.0, displayName: displayName ?? "", cardName: cardName ?? "", cardNumber: cardNumber ?? "", cardType: cardType ?? "", cardTypeLogo: cardTypeLogo ?? "")
+                        }
+                    }
                 }
     }
 }

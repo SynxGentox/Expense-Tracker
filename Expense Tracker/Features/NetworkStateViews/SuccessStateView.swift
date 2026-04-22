@@ -13,6 +13,7 @@ struct SuccessStateView: View {
     @State var inputCurr: String = Locale.current.currency?.identifier ?? "USD"
     @State var outputCurr: String = Locale.current.currency?.identifier ?? "USD"
     @FocusState private var currencyFocus: Bool
+    
     var body: some View {
         let sqCardSize = CardT.CHeight.mediumH.cardCH
         let rectCardSize = CardT.CWidth.largeW.valueCW

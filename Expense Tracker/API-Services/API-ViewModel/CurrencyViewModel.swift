@@ -21,21 +21,24 @@ class CurrencyViewModel {
     
     func fetchRates() {
         Task {
-            try? await Task.sleep(nanoseconds: 1_800_000_000)
             do {
                 let result = try await apiProtocol.fetchRates()
-                if result.conversionRate.isEmpty {
+                networkState = .loading
+                if result.conversionRates.isEmpty {
                     networkState = .empty{
-                        self.networkState = .loading
-                        self.fetchRates()
+                        self.networkState = .empty {
+                        }
+                        print("empty")
                     }
-                } else  {
+                } else {
                     networkState = .success(rates: result)
+                    print("success")
                 }
             } catch {
                 networkState = .error(error) {
-                    self.networkState = .loading
-                    self.fetchRates()
+                    self.networkState = .error(error) {
+                        print(error)
+                    }
                 }
             }
         }

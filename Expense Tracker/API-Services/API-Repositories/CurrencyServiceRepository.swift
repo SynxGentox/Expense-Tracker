@@ -17,7 +17,6 @@ class CurrencyServiceRepository: CurrencyRepository {
         }
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder  = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let result = try decoder.decode(CurrencyModel.self, from: data)
             return result
     }
