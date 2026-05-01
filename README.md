@@ -1,5 +1,5 @@
 # Expense Tracker
-An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repository architecture. Built as a portfolio project to demonstrate production-level iOS development practices.
+An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repository architecture.
 
 ---
 
@@ -77,3 +77,13 @@ struct ApiKey {
 - `async/await` networking with proper error propagation
 - SwiftUI state management: `@Observable`, `@AppStorage`, `@Environment`, `@Binding`
 - HIG principles applied to real screens — destructive action confirmations, empty states, navigation consistency
+
+- ## Screenshots
+<img src="Assets/dashboard.png" width="250"> 
+<img src="Assets/history.png" width="250">
+<img src="Assets/currency.png" width="250">
+<img src="Assets/add_expense.png" width="250">
+
+## Performance
+- Memory: ~50MB idle, peaks ~77MB during API calls
+- CPU: 0% idle
