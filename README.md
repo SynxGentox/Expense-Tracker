@@ -83,6 +83,8 @@ struct ApiKey {
 <img src="Assets/history.png" width="250">
 <img src="Assets/currency.png" width="250">
 <img src="Assets/add_expense.png" width="250">
+<img src="Assets/memory_graph.png" width="250">
+<img src="Assets/cpu_graph.png" width="250">
 
 ## Performance
 - Memory: ~50MB idle, peaks ~77MB during API calls
