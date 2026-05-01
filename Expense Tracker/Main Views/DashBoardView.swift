@@ -23,7 +23,7 @@ struct DashBoardView: View {
                     GreetingCardView(displayName: viewModel.displayName)
                     Divider()
                     DB_CardView(
-                        balance: viewModel.remainingBalance,
+                        balance: viewModel.totalBudget - viewModel.totalSpent,
                         cardName: viewModel.cardName,
                         cardType: viewModel.cardType,
                         cardNumber: viewModel.cardNumber,

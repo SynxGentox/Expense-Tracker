@@ -23,7 +23,6 @@ class CurrencyViewModel {
         Task {
             do {
                 let result = try await apiProtocol.fetchRates()
-                networkState = .loading
                 if result.conversionRates.isEmpty {
                     networkState = .empty{
                         self.networkState = .empty {
@@ -43,5 +42,4 @@ class CurrencyViewModel {
             }
         }
     }
-        // Other code...
 }

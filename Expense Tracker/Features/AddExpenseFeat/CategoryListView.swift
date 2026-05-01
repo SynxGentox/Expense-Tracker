@@ -19,23 +19,18 @@ struct CategoryListView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        // 3. The Layout Engine (Native iOS Settings feel)
         List {
             ForEach(CategoryModel.categories) { category in
                 Button {
-                    // THE ACTION
                     selectedCategory = category.title
                     selectedIcon = category.systemIcon
                     
-                    // The stateless hardware tap we discussed
                     let haptic = UIImpactFeedbackGenerator(style: .light)
                     haptic.impactOccurred()
                     
                     dismiss()
                 } label: {
-                    // THE UI ROW
                     HStack(spacing: 16) {
-                        // The Apple-style Icon Box
                         Image(systemName: category.systemIcon)
                             .font(.title3)
                             .foregroundStyle(.white)
@@ -49,16 +44,15 @@ struct CategoryListView: View {
                         
                         Spacer()
                         
-                        // PRO-TOUCH: The Active Checkmark
                         if selectedCategory == category.title {
                             Image(systemName: "checkmark")
                                 .font(.body.weight(.semibold))
                                 .foregroundStyle(.accent)
                         }
                     }
-                    .padding(.vertical, 4) // Gives the row a little breathing room
+                    .padding(.vertical, 4)
                 }
-                .tint(.primary) // Stops the whole row text from turning blue
+                .tint(.primary)
             }
         }
         .navigationTitle("Select Category")

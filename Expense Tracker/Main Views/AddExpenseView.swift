@@ -96,9 +96,9 @@ struct AddExpenseView: View {
                         isScheduled = false
                     } label: {
                         Text("Save")
-                    }.buttonStyle(.borderedProminent)
-                        .sensoryFeedback(.success, trigger: viewModel.sensfeedback)
-                        .sensoryFeedback(.error, trigger: viewModel.errorMessage)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .sensoryFeedback(.success, trigger: viewModel.sensfeedback)
                 }
             }
         }

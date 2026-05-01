@@ -15,9 +15,15 @@ class CurrencyServiceRepository: CurrencyRepository {
         guard let url = URL(string: ExchangeRateUrl.exchangeUrl) else {
             throw URLError(.badURL)
         }
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder  = JSONDecoder()
-            let result = try decoder.decode(CurrencyModel.self, from: data)
-            return result
+        var lastError: Error?
+        for _ in 0..<3 {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                return try JSONDecoder().decode(CurrencyModel.self, from: data)
+            } catch {
+                lastError = error
+            }
+        }
+        throw lastError ?? URLError(.unknown)
     }
 }
