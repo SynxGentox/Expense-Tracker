@@ -80,7 +80,7 @@ struct ApiKey {
 
 - ## Screenshots
 <img src="Expense Tracker/Assets/dashboard.png" width="250"> 
-<img src="Expense Tracker/history.png" width="250">
+<img src="Expense Tracker/Assets/history.png" width="250">
 <img src="Expense Tracker/Assets/currency.png" width="250">
 <img src="Expense Tracker/Assets/add_expense.png" width="250">
 <img src="Expense Tracker/Assets/memory_graph.png" width="250">
