@@ -79,9 +79,9 @@ struct ApiKey {
 - HIG principles applied to real screens — destructive action confirmations, empty states, navigation consistency
 
 - ## Screenshots
-<img src="Expense_Tracker/Assets/dashboard.png" width="250"> 
-<img src="Expense_Tracker/history.png" width="250">
-<img src="Expense_Tracker/Assets/currency.png" width="250">
+<img src="Expense Tracker/Assets/dashboard.png" width="250"> 
+<img src="Expense Tracker/history.png" width="250">
+<img src="Expense Tracker/Assets/currency.png" width="250">
 <img src="Expense Tracker/Assets/add_expense.png" width="250">
 <img src="Expense Tracker/Assets/memory_graph.png" width="250">
 <img src="Expense Tracker/Assets/cpu_graph.png" width="250">
