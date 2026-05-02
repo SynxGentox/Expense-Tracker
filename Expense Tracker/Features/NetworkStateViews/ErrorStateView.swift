@@ -37,8 +37,6 @@ struct ErrorStateView: View {
 }
 
 #Preview {
-    // Inject a trailing closure that just prints to the console
     ErrorStateView(error: URLError(.notConnectedToInternet)) {
-        print("Reload button tapped in Preview")
     }
 }

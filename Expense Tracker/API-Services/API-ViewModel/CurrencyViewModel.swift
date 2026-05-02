@@ -27,16 +27,13 @@ class CurrencyViewModel {
                     networkState = .empty{
                         self.networkState = .empty {
                         }
-                        print("empty")
                     }
                 } else {
                     networkState = .success(rates: result)
-                    print("success")
                 }
             } catch {
                 networkState = .error(error) {
                     self.networkState = .error(error) {
-                        print(error)
                     }
                 }
             }

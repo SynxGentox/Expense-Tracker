@@ -36,6 +36,5 @@ struct EmptyStateView: View {
 
 #Preview {
     EmptyStateView() {
-        print("Reload button tapped in Preview")
     }
 }
