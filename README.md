@@ -1,9 +1,19 @@
 # Expense Tracker
+
 An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repository architecture.
 
 ---
 
+## Performance
+
+- Memory: ~27MB idle, peaks ~58MB under heavy load
+- CPU: 0% idle, Energy Impact: Low
+- Benchmarked on iPad 10th gen, A14 Bionic, 4GB RAM
+
+---
+
 ## Features
+
 - Add and track expenses with category, payment method, date, and notes
 - Schedule future expense reminders via local notifications
 - Daily reminder notification at a user-set time
@@ -16,6 +26,7 @@ An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repo
 ---
 
 ## Tech Stack
+
 | Layer | Technology |
 |---|---|
 | UI | SwiftUI |
@@ -30,6 +41,7 @@ An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repo
 ---
 
 ## Architecture
+
 ```
 View → ViewModel → Repository Protocol → SwiftData / Network
 ```
@@ -41,6 +53,7 @@ View → ViewModel → Repository Protocol → SwiftData / Network
 ---
 
 ## Project Structure
+
 ```
 Expense Tracker/
 ├── Models/          — SwiftData model, CategoryModel, CurrencyModel
@@ -59,6 +72,7 @@ Expense Tracker/
 ---
 
 ## Setup
+
 1. Clone the repo
 2. Add your API keys to `Secrets.swift` (not tracked in git):
 ```swift
@@ -71,6 +85,7 @@ struct ApiKey {
 ---
 
 ## What I Learned Building This
+
 - SwiftData persistence and `@Model` lifecycle
 - Protocol-driven repository pattern for testable data layers
 - `UNUserNotificationCenter` — permission flow, calendar triggers, identifier-based cancellation
@@ -85,7 +100,4 @@ struct ApiKey {
 <img src="Expense Tracker/Assets/add_expense.png" width="250">
 <img src="Expense Tracker/Assets/memory_graph.png" width="250">
 <img src="Expense Tracker/Assets/cpu_graph.png" width="250">
-
-## Performance
-- Memory: ~50MB idle, peaks ~77MB during API calls
-- CPU: 0% idle
+<img src="Expense Tracker/Assets/energy_graph.png" width="250">
