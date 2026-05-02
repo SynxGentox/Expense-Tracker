@@ -9,6 +9,7 @@ An iOS expense tracking app built with SwiftUI, SwiftData, and a clean MVVM+Repo
 - Memory: ~27MB idle, peaks ~58MB under heavy load
 - CPU: 0% idle, Energy Impact: Low
 - Benchmarked on iPad 10th gen, A14 Bionic, 4GB RAM
+- ```Note: 77MB spikes are RTIInputSystemClient errors.```
 
 ---
 
